@@ -1,0 +1,107 @@
+[
+  {
+    "EAI_CATALOG_ID": "1",
+    "APPLICATION_NAME": "IDECOMAdapter",
+    "SYSTEM": "BW5",
+    "SYSTEM_TYPE": "Services",
+    "SYSTEM_FUNCTION": "AGS021",
+    "SYSTEM_OPERATION": "UpsertComplaint",
+    "SYSTEM_VERSION": "1.0",
+    "RECEIVER_TYPE": "JMS",
+    "RECEIVER_DESTINATION": "Q.Subscription.Adapter.IDECOM.Complaint.Command",
+    "HAS_HANDLING": "1",
+    "HAS_SEQUENCE": "1"
+  },
+  {
+    "EAI_CATALOG_ID": "1",
+    "APPLICATION_NAME": "IDECOMAdapter",
+    "SYSTEM": "BW5",
+    "SYSTEM_TYPE": "Services",
+    "SYSTEM_FUNCTION": "AGS021",
+    "SYSTEM_OPERATION": "UpsertComplaint",
+    "SYSTEM_VERSION": "1.0",
+    "RECEIVER_TYPE": "JMS",
+    "RECEIVER_DESTINATION": "Q.Subscription.Adapter.IDECOM.Complaint.Command",
+    "HAS_HANDLING": "1",
+    "HAS_SEQUENCE": "1"
+  },
+  {
+    "EAI_CATALOG_ID": "1",
+    "APPLICATION_NAME": "IDECOMAdapter",
+    "SYSTEM": "BW5",
+    "SYSTEM_TYPE": "Services",
+    "SYSTEM_FUNCTION": "AGS021",
+    "SYSTEM_OPERATION": "UpsertComplaint",
+    "SYSTEM_VERSION": "1.0",
+    "RECEIVER_TYPE": "JMS",
+    "RECEIVER_DESTINATION": "Q.Subscription.Adapter.IDECOM.Complaint.Command",
+    "HAS_HANDLING": "1",
+    "HAS_SEQUENCE": "1"
+  },
+  {
+    "EAI_CATALOG_ID": "1",
+    "APPLICATION_NAME": "IDECOMAdapter",
+    "SYSTEM": "BW5",
+    "SYSTEM_TYPE": "Services",
+    "SYSTEM_FUNCTION": "AGS021",
+    "SYSTEM_OPERATION": "UpsertComplaint",
+    "SYSTEM_VERSION": "1.0",
+    "RECEIVER_TYPE": "JMS",
+    "RECEIVER_DESTINATION": "Q.Subscription.Adapter.IDECOM.Complaint.Command",
+    "HAS_HANDLING": "1",
+    "HAS_SEQUENCE": "1"
+  },
+  {
+    "EAI_CATALOG_ID": "1",
+    "APPLICATION_NAME": "IDECOMAdapter",
+    "SYSTEM": "BW5",
+    "SYSTEM_TYPE": "Services",
+    "SYSTEM_FUNCTION": "AGS021",
+    "SYSTEM_OPERATION": "UpsertComplaint",
+    "SYSTEM_VERSION": "1.0",
+    "RECEIVER_TYPE": "JMS",
+    "RECEIVER_DESTINATION": "Q.Subscription.Adapter.IDECOM.Complaint.Command",
+    "HAS_HANDLING": "1",
+    "HAS_SEQUENCE": "1"
+  },
+  {
+    "EAI_CATALOG_ID": "1",
+    "APPLICATION_NAME": "IDECOMAdapter",
+    "SYSTEM": "BW5",
+    "SYSTEM_TYPE": "Services",
+    "SYSTEM_FUNCTION": "AGS021",
+    "SYSTEM_OPERATION": "UpsertComplaint",
+    "SYSTEM_VERSION": "1.0",
+    "RECEIVER_TYPE": "JMS",
+    "RECEIVER_DESTINATION": "Q.Subscription.Adapter.IDECOM.Complaint.Command",
+    "HAS_HANDLING": "1",
+    "HAS_SEQUENCE": "1"
+  },
+  {
+    "EAI_CATALOG_ID": "1",
+    "APPLICATION_NAME": "IDECOMAdapter",
+    "SYSTEM": "BW5",
+    "SYSTEM_TYPE": "Services",
+    "SYSTEM_FUNCTION": "AGS021",
+    "SYSTEM_OPERATION": "UpsertComplaint",
+    "SYSTEM_VERSION": "1.0",
+    "RECEIVER_TYPE": "JMS",
+    "RECEIVER_DESTINATION": "Q.Subscription.Adapter.IDECOM.Complaint.Command",
+    "HAS_HANDLING": "1",
+    "HAS_SEQUENCE": "1"
+  },
+  {
+    "EAI_CATALOG_ID": "1",
+    "APPLICATION_NAME": "IDECOMAdapter",
+    "SYSTEM": "BW5",
+    "SYSTEM_TYPE": "Services",
+    "SYSTEM_FUNCTION": "AGS021",
+    "SYSTEM_OPERATION": "UpsertComplaint",
+    "SYSTEM_VERSION": "1.0",
+    "RECEIVER_TYPE": "JMS",
+    "RECEIVER_DESTINATION": "Q.Subscription.Adapter.IDECOM.Complaint.Command",
+    "HAS_HANDLING": "1",
+    "HAS_SEQUENCE": "1"
+  }
+]
+

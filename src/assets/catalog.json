@@ -1,0 +1,75 @@
+[
+  {
+    "EH_CONTROL_ID": "IDECOMAdapter",
+    "EAI_CATALOG_ID": "BW5",
+    "EAI_ERROR_CODE": "Services",
+    "EH_RETRY": "AGS021",
+    "EH_STATUS": "UpsertComplaint",
+    "EH_PUBLISH_DATE": "1.0",
+    "SYSTEM_START_MSG": "JMS",
+    "HEADERS": "Q.Subscription.Adapter.IDECOM.Complaint.Command",
+    "INSERT_DATETIME": "1",
+    "UPDATE_DATETIME": "1"
+  },
+  {
+    "EH_CONTROL_ID": "IDECOMAdapter",
+    "EAI_CATALOG_ID": "BW5",
+    "EAI_ERROR_CODE": "Services",
+    "EH_RETRY": "AGS021",
+    "EH_STATUS": "UpsertComplaint",
+    "EH_PUBLISH_DATE": "1.0",
+    "SYSTEM_START_MSG": "JMS",
+    "HEADERS": "Q.Subscription.Adapter.IDECOM.Complaint.Command",
+    "INSERT_DATETIME": "1",
+    "UPDATE_DATETIME": "1"
+  },
+  {
+    "EH_CONTROL_ID": "IDECOMAdapter",
+    "EAI_CATALOG_ID": "BW5",
+    "EAI_ERROR_CODE": "Services",
+    "EH_RETRY": "AGS021",
+    "EH_STATUS": "UpsertComplaint",
+    "EH_PUBLISH_DATE": "1.0",
+    "SYSTEM_START_MSG": "JMS",
+    "HEADERS": "Q.Subscription.Adapter.IDECOM.Complaint.Command",
+    "INSERT_DATETIME": "1",
+    "UPDATE_DATETIME": "1"
+  },
+  {
+    "EH_CONTROL_ID": "IDECOMAdapter",
+    "EAI_CATALOG_ID": "BW5",
+    "EAI_ERROR_CODE": "Services",
+    "EH_RETRY": "AGS021",
+    "EH_STATUS": "UpsertComplaint",
+    "EH_PUBLISH_DATE": "1.0",
+    "SYSTEM_START_MSG": "JMS",
+    "HEADERS": "Q.Subscription.Adapter.IDECOM.Complaint.Command",
+    "INSERT_DATETIME": "1",
+    "UPDATE_DATETIME": "1"
+  },
+  {
+    "EH_CONTROL_ID": "IDECOMAdapter",
+    "EAI_CATALOG_ID": "BW5",
+    "EAI_ERROR_CODE": "Services",
+    "EH_RETRY": "AGS021",
+    "EH_STATUS": "UpsertComplaint",
+    "EH_PUBLISH_DATE": "1.0",
+    "SYSTEM_START_MSG": "JMS",
+    "HEADERS": "Q.Subscription.Adapter.IDECOM.Complaint.Command",
+    "INSERT_DATETIME": "1",
+    "UPDATE_DATETIME": "1"
+  },
+  {
+    "EH_CONTROL_ID": "IDECOMAdapter",
+    "EAI_CATALOG_ID": "BW5",
+    "EAI_ERROR_CODE": "Services",
+    "EH_RETRY": "AGS021",
+    "EH_STATUS": "UpsertComplaint",
+    "EH_PUBLISH_DATE": "1.0",
+    "SYSTEM_START_MSG": "JMS",
+    "HEADERS": "Q.Subscription.Adapter.IDECOM.Complaint.Command",
+    "INSERT_DATETIME": "1",
+    "UPDATE_DATETIME": "1"
+  }
+]
+
