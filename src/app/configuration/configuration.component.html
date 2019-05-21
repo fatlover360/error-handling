@@ -1,0 +1,21 @@
+<p-table [value]="configurationArray" *ngIf="!isLoading">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Catalog Id</th>
+      <th>Error Code Id</th>
+      <th>Max Retries</th>
+      <th>Wait time(s)</th>
+      <th>Delta time(s)</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" *ngFor="let configuration of configurationArray">
+    <tr>
+      <td>{{configuration.EAI_CATALOG_ID}}</td>
+      <td>{{configuration.EAI_ERROR_CODE_ID}}</td>
+      <td>{{configuration.MAX_RETRIES}}</td>
+      <td>{{configuration.WAIT_TIME_SECS}}</td>
+      <td>{{configuration.DELTA_TIME_SECS}}</td>
+    </tr>
+  </ng-template>
+</p-table>
+<p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]"></p-paginator>

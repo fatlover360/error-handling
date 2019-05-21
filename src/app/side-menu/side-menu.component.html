@@ -1,0 +1,11 @@
+
+
+<div class="layout-sidebar" [ngClass]="{'layout-sidebar-active': app.sidebarActive}">
+
+  <p-scrollPanel #scrollPanel [style]="{height: '100%'}">
+    <!--ul app-submenu [model]="model" root="true" class="layout-menu"></ul-->
+    <p-menu [style]="{height: '100%', width: '100%', 'background-color': 'darkgray'}" [model]="model" class="layout-menu"></p-menu>
+  </p-scrollPanel>
+
+
+</div>

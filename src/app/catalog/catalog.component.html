@@ -1,0 +1,117 @@
+<p-toast></p-toast>
+<p-menubar [model]="items"></p-menubar>
+
+
+
+<p-dialog [(visible)]="display" [modal]="true" [responsive]="true" [style]="{minWidth: '600px'}" [minY]="70"
+          [maximizable]="true" [baseZIndex]="10000"> >
+  <p-header>
+    Add New Service Catalog
+  </p-header>
+
+  <!-- FORM -->
+
+  <app-catalog-form (submitFormObj)="submit($event)"></app-catalog-form>
+
+  <!-- END OF FORM -->
+
+</p-dialog>
+
+<p-table #dt [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,20,100]"
+         [totalRecords]="8" [columns]="cols" [value]="catalogArray"
+         *ngIf="!isLoading" selectionMode="multiple"
+         [(selection)]="selectedCatalogs"
+         (onRowSelect)="onRowSelect($event)"
+         (onRowUnselect)="onRowUnselect($event)"
+         [responsive]="true"
+         dataKey="EAI_CATALOG_ID">
+
+  <ng-template pTemplate="caption">
+    <div style="text-align: right">
+      <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+      <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header" let-columns >
+    <tr>
+      <th style="width: 3em"></th>
+      <th *ngFor="let col of cols" [ngClass]="col.field">
+        {{col.header}}
+      </th>
+      <!--th style="width:4em"></th-->
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-catalog let-columns="columns" let-rowIndex="rowIndex" let-expanded="expanded">
+    <tr [pSelectableRow]="catalog" [pSelectableRowIndex]="rowIndex" >
+      <td>
+        <a href="#" [pRowToggler]="catalog" (click)="selectCatalog(catalog)">
+          <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+        </a>
+      </td>
+      <td *ngFor="let col of cols" >
+        {{catalog[col.field]}}
+      </td>
+      <!--td>
+        <a pButton class="ui-button-secondary ui-button-severity" icon="pi pi-eye" [pRowToggler]="catalog" (click)="selectCatalog(catalog)"></a>
+      </td-->
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="rowexpansion" let-catalog let-columns="columns">
+    <tr>
+      <td [attr.colspan]="columns.length + 1">
+        <div class="ui-g ui-fluid" style="font-size:12px;padding:20px">
+          <div class="ui-g-5 ui-md-5">
+            <div class="ui-g">
+              <div class="ui-g-12">
+                <b>Catalog ID:</b> {{catalog.EAI_CATALOG_ID}}
+              </div>
+              <div class="ui-g-12">
+                <b>Application Name:</b> {{catalog.APPLICATION_NAME}}
+              </div>
+              <div class="ui-g-12">
+                <b>System:</b> {{catalog.SYSTEM}}
+              </div>
+              <div class="ui-g-12">
+                <b>System Type:</b> {{catalog.SYSTEM_TYPE}}
+              </div>
+              <div class="ui-g-12">
+                <b>System Function:</b> {{catalog.SYSTEM_FUNCTION}}
+              </div>
+              <div class="ui-g-12">
+                <b>System Operation:</b> {{catalog.SYSTEM_OPERATION}}
+              </div>
+            </div>
+          </div>
+          <div class="ui-g-5 ui-md-5">
+            <div class="ui-g">
+              <div class="ui-g-12">
+                <b>System Version:</b> {{catalog.SYSTEM_VERSION}}
+              </div>
+              <div class="ui-g-12">
+                <b>Receiver Type:</b> {{catalog.RECEIVER_TYPE}}
+              </div>
+              <div class="ui-g-12">
+                <b>Receiver Destination:</b> {{catalog.RECEIVER_DESTINATION}}
+              </div>
+              <div class="ui-g-12">
+                <b>Has Handling:</b> {{catalog.HAS_HANDLING}}
+              </div>
+              <div class="ui-g-12">
+                <b>Has Sequence:</b> {{catalog.HAS_SEQUENCE}}
+              </div>
+            </div>
+          </div>
+          <div class="ui-g-1 ui-md-1">
+            <div class="ui-m">
+              <button pButton type="button" class="ui-button-info" icon="pi pi-trash" label="Delete"></button>
+              <button pButton (click)="cancel()" class="ui-button-success" icon="pi pi-pencil" label="Edit"></button> <!--[disabled]="!form.valid"-->
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="summary">
+    There are {{catalogArray?.length}} catalog items.
+  </ng-template>
+</p-table>

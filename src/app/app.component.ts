@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'error-handling';
+
+  sidebarActive: boolean;
+
+  onMenuButtonClick(event: Event) {
+    this.sidebarActive = !this.sidebarActive;
+
+    event.preventDefault();
+  }
 }

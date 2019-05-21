@@ -1,0 +1,31 @@
+<p-table [value]="controlDataArray" *ngIf="!isLoading">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>ID</th>
+      <th>Catalog ID</th>
+      <th>Error Code</th>
+      <th>Retry</th>
+      <th>Status</th>
+      <th>Publish Date</th>
+      <th>System Start Message</th>
+      <th>Headers</th>
+      <th>Insert Datetime</th>
+      <th>Update Datetime</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" *ngFor="let controlData of controlDataArray">
+    <tr>
+      <td>{{controlData.EH_CONTROL_ID}}</td>
+      <td>{{controlData.EAI_CATALOG_ID}}</td>
+      <td>{{controlData.EAI_ERROR_CODE}}</td>
+      <td>{{controlData.EH_RETRY}}</td>
+      <td>{{controlData.EH_STATUS}}</td>
+      <td>{{controlData.EH_PUBLISH_DATE}}</td>
+      <td>{{controlData.SYSTEM_START_MSG}}</td>
+      <td>{{controlData.HEADERS}}</td>
+      <td>{{controlData.INSERT_DATETIME}}</td>
+      <td>{{controlData.UPDATE_DATETIME}}</td>
+    </tr>
+  </ng-template>
+</p-table>
+<p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]"></p-paginator>

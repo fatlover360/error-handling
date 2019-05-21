@@ -1,10 +1,142 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<form [formGroup]="formCatalog" (ngSubmit)="submitForm()" *ngIf="!loading">
+
+  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+    <p-scrollPanel [style]="{width: '100%', height: '50%'}">
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-3">
+          Application Name *:
+        </div>
+        <div class="ui-grid-col-5">
+          <input pInputText type="text" formControlName="APPLICATION_NAME" placeholder="Required">
+        </div>
+        <div class="ui-grid-col-4">
+          <p-message severity="error" text="Application Name is required"
+                     *ngIf="!formCatalog.controls['APPLICATION_NAME'].valid&&formCatalog.controls['APPLICATION_NAME'].dirty"></p-message>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-3">
+          System *:
+        </div>
+        <div class="ui-grid-col-5">
+          <input pInputText type="text" formControlName="SYSTEM" placeholder="Required"/>
+        </div>
+        <div class="ui-grid-col-4">
+          <p-message severity="error" text="System is required"
+                     *ngIf="!formCatalog.controls['SYSTEM'].valid&&formCatalog.controls['SYSTEM'].dirty"></p-message>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-3">
+          System Type *:
+        </div>
+        <div class="ui-grid-col-5">
+          <input pInputText type="text" formControlName="SYSTEM_TYPE" placeholder="System Type is required"/>
+        </div>
+        <div class="ui-grid-col-4">
+          <p-message severity="error" text="System Type is required"
+                     *ngIf="!formCatalog.controls['SYSTEM_TYPE'].valid&&formCatalog.controls['SYSTEM_TYPE'].dirty"></p-message>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-3">
+          System Function *:
+        </div>
+        <div class="ui-grid-col-5">
+          <input pInputText type="text" formControlName="SYSTEM_FUNCTION">
+        </div>
+        <div class="ui-grid-col-4">
+          <p-message severity="error" text="System Function is required"
+                     *ngIf="!formCatalog.controls['SYSTEM_FUNCTION'].valid&&formCatalog.controls['SYSTEM_FUNCTION'].dirty"></p-message>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-3">
+          System Operation *:
+        </div>
+        <div class="ui-grid-col-5">
+          <input pInputText type="text" formControlName="SYSTEM_OPERATION">
+        </div>
+        <div class="ui-grid-col-4">
+          <p-message severity="error" text="System Operation is required"
+                     *ngIf="!formCatalog.controls['SYSTEM_OPERATION'].valid&&formCatalog.controls['SYSTEM_OPERATION'].dirty"></p-message>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-3">
+          System Version *:
+        </div>
+        <div class="ui-grid-col-5">
+          <input pInputText type="text" formControlName="SYSTEM_VERSION">
+        </div>
+        <div class="ui-grid-col-4">
+          <p-message severity="error" text="System Version is required"
+                     *ngIf="!formCatalog.controls['SYSTEM_VERSION'].valid&&formCatalog.controls['SYSTEM_VERSION'].dirty"></p-message>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-3">
+          Receiver Type *:
+        </div>
+        <div class="ui-grid-col-5">
+          <p-dropdown [options]="booleans" formControlName="RECEIVER_TYPE" [autoWidth]="false"></p-dropdown>
+        </div>
+        <div class="ui-grid-col-4">
+          <p-message severity="error" text="Receiver Type is required"
+                     *ngIf="!formCatalog.controls['RECEIVER_TYPE'].valid&&formCatalog.controls['RECEIVER_TYPE'].dirty"></p-message>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-3">
+          Receiver Destination *:
+        </div>
+        <div class="ui-grid-col-5">
+          <input pInputText type="text" formControlName="RECEIVER_DESTINATION">
+        </div>
+        <div class="ui-grid-col-4">
+          <p-message severity="error" text="Receiver Destination is required"
+                     *ngIf="!formCatalog.controls['RECEIVER_DESTINATION'].valid&&formCatalog.controls['RECEIVER_DESTINATION'].dirty"></p-message>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-3">
+          Has Sequence:
+        </div>
+        <div class="ui-grid-col-5">
+          <div class="ui-g-12"><p-checkbox name="HAS_SEQUENCE" value="HAS_SEQUENCE" formControlName="HAS_SEQUENCE"></p-checkbox></div>
+        </div>
+        <div class="ui-grid-col-4">
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-3">
+          Has Handling:
+        </div>
+        <div class="ui-grid-col-5">
+          <div class="ui-g-12"><p-checkbox name="HAS_HANDLING" value="HAS_HANDLING" formControlName="HAS_HANDLING"></p-checkbox></div>
+        </div>
+        <div class="ui-grid-col-4">
+        </div>
+      </div>
+      <div class="ui-grid-row" style="margin-top: 20px; margin-bottom: 20px">
+        <div class="ui-grid-col-3"></div>
+        <div class="ui-grid-col-5">
+
+        </div>
+        <div class="ui-grid-col-4"></div>
+      </div>
+    </p-scrollPanel>
+  </div>
+
+  <p-footer>
+    <button pButton type="submit" icon="pi pi-check" label="Submit" [disabled]="!formCatalog.valid"></button>
+    <button pButton type="button" icon="pi pi-close" (click)="cancel()" class="ui-button-secondary" label="Cancel"></button>
+  </p-footer>
+</form>
+
+
+
+
+
+
+

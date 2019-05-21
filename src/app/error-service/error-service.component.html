@@ -1,0 +1,23 @@
+<p-table [value]="errorServiceArray" *ngIf="!isLoading">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>ID</th>
+      <th>Application Name</th>
+      <th>Catalog Id</th>
+      <th>System Native Code</th>
+      <th>Error Code Id</th>
+      <th>Is Error</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" *ngFor="let errorServiceItem of errorServiceArray">
+    <tr>
+      <td>{{errorServiceItem.EAI_ERROR_SERVICE_ID}}</td>
+      <td>{{errorServiceItem.APPLICATION_NAME}}</td>
+      <td>{{errorServiceItem.EAI_CATALOG_ID}}</td>
+      <td>{{errorServiceItem.SYSTEM_NATIVE_CODE}}</td>
+      <td>{{errorServiceItem.EAI_ERROR_CODE_ID}}</td>
+      <td>{{errorServiceItem.IS_ERROR}}</td>
+    </tr>
+  </ng-template>
+</p-table>
+<p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]"></p-paginator>

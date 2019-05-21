@@ -1,12 +1,17 @@
-export class ControlData {
-  EH_CONTROL_ID: string;
-  EAI_CATALOG_ID: string;
-  EAI_ERROR_CODE: string;
-  EH_RETRY: string;
-  EH_STATUS: string;
-  EH_PUBLISH_DATE: string;
-  SYSTEM_START_MSG: string;
-  HEADERS: string;
-  INSERT_DATETIME: string;
-  UPDATE_DATETIME: string;
+export class Catalog {
+  EAI_CATALOG_ID: number;
+  APPLICATION_NAME: string;
+  SYSTEM: string;
+  SYSTEM_TYPE: string;
+  SYSTEM_FUNCTION: string;
+  SYSTEM_OPERATION: string;
+  SYSTEM_VERSION: string;
+  RECEIVER_TYPE: string;
+  RECEIVER_DESTINATION: string;
+  HAS_HANDLING: boolean;
+  HAS_SEQUENCE: boolean;
+
+  constructor() {
+  }
 }
+
