@@ -40,6 +40,24 @@
       </th>
       <!--th style="width:4em"></th-->
     </tr>
+    <tr>
+      <th style="width: 3em"></th>
+      <th *ngFor="let col of cols" [ngSwitch]="col.field">
+        <input *ngSwitchCase="'EAI_CATALOG_ID'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+        <input *ngSwitchCase="'APPLICATION_NAME'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+        <input *ngSwitchCase="'SYSTEM'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')" >
+        <input *ngSwitchCase="'SYSTEM_TYPE'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')" >
+        <input *ngSwitchCase="'SYSTEM_FUNCTION'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')" >
+        <input *ngSwitchCase="'SYSTEM_OPERATION'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')" >
+        <input *ngSwitchCase="'SYSTEM_VERSION'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+        <p-dropdown *ngSwitchCase="'RECEIVER_TYPE'" [options]="receivers" (onChange)="dt.filter($event.value, col.field, 'equals')" ></p-dropdown>
+        <input *ngSwitchCase="'RECEIVER_DESTINATION'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')" >
+        <p-dropdown class="dropdown" *ngSwitchCase="'HAS_HANDLING'" [options]="bools"  (onChange)="dt.filter($event.value, col.field, 'equals')" ></p-dropdown>
+        <p-dropdown class="dropdown" *ngSwitchCase="'HAS_SEQUENCE'" [options]="bools"  (onChange)="dt.filter($event.value, col.field, 'equals')" ></p-dropdown>
+      </th>
+    </tr>
+
+
   </ng-template>
   <ng-template pTemplate="body" let-catalog let-columns="columns" let-rowIndex="rowIndex" let-expanded="expanded">
     <tr [pSelectableRow]="catalog" [pSelectableRowIndex]="rowIndex" >

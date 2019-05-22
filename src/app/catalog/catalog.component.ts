@@ -1,14 +1,13 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Catalog} from '../model/catalog';
 import {CatalogService} from './catalog.service';
-import {DialogService, DynamicDialogConfig, MenuItem, MessageService} from 'primeng/api';
+import {MenuItem, MessageService, SelectItem} from 'primeng/api';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-catalog',
   templateUrl: './catalog.component.html',
   styleUrls: ['./catalog.component.css'],
-  providers: [DialogService, DynamicDialogConfig],
   encapsulation: ViewEncapsulation.None,
   animations: [
   trigger('rowExpansionTrigger', [
@@ -32,16 +31,32 @@ export class CatalogComponent implements OnInit {
   items: MenuItem[];
   catalogArray: Catalog[];
   cols: any[];
+  receivers: SelectItem[];
+  bools: SelectItem[];
   selectedCatalogs: Catalog[];
 
-  constructor(private catalogService: CatalogService, public dialogService: DialogService, public messageService: MessageService) {
+  constructor(private catalogService: CatalogService, public messageService: MessageService) {
   }
 
   ngOnInit() {
-    this.catalogService.getTest().subscribe( data => console.log(data));
+    //this.catalogService.getTest().subscribe( data => console.log(data));
 
 
     this.isLoading = true;
+
+    this.receivers = [
+      {label: 'All', value: null},
+      {label: 'JMS', value: 'JMS'},
+      {label: 'HTTP', value: 'HTTP'},
+      {label: 'SOAP', value: 'SOAP'}
+    ];
+
+    this.bools = [
+      {label: 'All', value: null},
+      {label: 'YES', value: '1'},
+      {label: 'NO', value: '0'}
+    ];
+
     this.cols = [
       {field: 'EAI_CATALOG_ID', header: 'ID'},
       {field: 'APPLICATION_NAME', header: 'Application Name'},
@@ -55,6 +70,7 @@ export class CatalogComponent implements OnInit {
       {field: 'HAS_HANDLING', header: 'Has Handling'},
       {field: 'HAS_SEQUENCE', header: 'Has Sequence'}
     ];
+
     this.catalogService.getCatalogItems().subscribe((catalog: Catalog[]) => {
       this.catalogArray = catalog;
       this.isLoading = false;
@@ -65,13 +81,16 @@ export class CatalogComponent implements OnInit {
         label: 'New',
         icon: 'pi pi-fw pi-plus',
         command: event => {
-         // this.show();
+          this.showModal(true);
         }
       },
       {
         label: 'Edit',
         icon: 'pi pi-fw pi-pencil',
-        disabled: true
+        disabled: true,
+        command: event => {
+          this.showModal(true);
+        }
       },
       {
         label: 'Delete',
@@ -87,14 +106,7 @@ export class CatalogComponent implements OnInit {
         command: event => {
           this.clearSelection();
         }
-      },
-      {
-        label: 'New',
-        icon: 'pi pi-fw pi-plus',
-        command: event => {
-          this.showModal(true);
-        }
-      },
+      }
     ];
   }
 

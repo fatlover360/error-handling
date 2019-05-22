@@ -21,7 +21,9 @@ import {ErrorCodeService} from './error-code/error-code.service';
 import {ErrorServiceService} from './error-service/error-service.service';
 import {PaginatorModule} from 'primeng/paginator';
 import {
-  ButtonModule, CheckboxModule, ContextMenuModule, InputTextModule, MenubarModule, MessageService, RadioButtonModule,
+  ButtonModule, CheckboxModule, ContextMenuModule, DropdownModule, InputTextModule, MenubarModule, MessageService,
+  MultiSelectModule,
+  RadioButtonModule,
   ScrollPanelModule
 } from 'primeng/primeng';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
@@ -68,7 +70,9 @@ import {DialogModule} from "primeng/dialog";
     PanelModule,
     InputTextModule,
     RadioButtonModule,
-    CheckboxModule
+    CheckboxModule,
+    MultiSelectModule,
+    DropdownModule
   ],
   providers: [HttpClient, ControlDataService, CatalogService, ConfigurationService, ErrorCodeService, ErrorServiceService, MessageService],
   bootstrap: [AppComponent],

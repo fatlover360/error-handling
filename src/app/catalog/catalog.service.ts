@@ -17,7 +17,7 @@ export class CatalogService {
   constructor(private http: HttpClient) {}
 
   getCatalogItems() {
-    return this.http.get<Catalog []>("http://polarising-p126:8080/catalog", this.httpOptions);
+    return this.http.get<Catalog []>("/assets/catalog.json");
   }
 
   getTest() {

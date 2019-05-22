@@ -64,6 +64,10 @@
   }
 }
 
+td {
+  font-size: 9pt;
+}
+
 .EAI_CATALOG_ID {
   width: 80px;
 }
@@ -73,7 +77,7 @@
 }
 
 .SYSTEM {
-  width: 80px;
+  width: 50px;
 }
 
 .SYSTEM_TYPE {
@@ -93,7 +97,11 @@
 }
 
 .RECEIVER_TYPE {
-  width: 100px;
+  width: 80px;
+}
+
+.RECEIVER_DESTINATION {
+  width: 250px;
 }
 
 .HAS_HANDLING {
@@ -110,6 +118,14 @@
 
 .ui-grid-col-5 {
   margin-right: 5px;
+}
+
+input {
+  width: 100%;
+}
+
+.drop {
+  width: 100%;
 }
 
 
