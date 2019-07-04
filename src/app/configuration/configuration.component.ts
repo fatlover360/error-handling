@@ -17,6 +17,7 @@ export class ConfigurationComponent implements OnInit {
   ngOnInit() {
     this.isLoading = true;
     this.catalogService.getConfigurationItems().then(controlData => {
+      console.log(controlData);
       this.configurationArray = controlData;
       this.isLoading = false;
     });

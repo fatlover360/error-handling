@@ -1,11 +1,12 @@
 export class Catalog {
   EAI_CATALOG_ID: number;
   APPLICATION_NAME: string;
+  SERVICE_NAME: string;
   SYSTEM: string;
-  SYSTEM_TYPE: string;
-  SYSTEM_FUNCTION: string;
-  SYSTEM_OPERATION: string;
-  SYSTEM_VERSION: string;
+  SERVICE_TYPE: string;
+  SERVICE_FUNCTION: string;
+  SERVICE_OPERATION: string;
+  SERVICE_VERSION: string;
   RECEIVER_TYPE: string;
   RECEIVER_DESTINATION: string;
   HAS_HANDLING: boolean;

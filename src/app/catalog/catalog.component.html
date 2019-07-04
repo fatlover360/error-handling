@@ -45,11 +45,12 @@
       <th *ngFor="let col of cols" [ngSwitch]="col.field">
         <input *ngSwitchCase="'EAI_CATALOG_ID'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
         <input *ngSwitchCase="'APPLICATION_NAME'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+        <input *ngSwitchCase="'SERVICE_NAME'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
         <input *ngSwitchCase="'SYSTEM'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')" >
-        <input *ngSwitchCase="'SYSTEM_TYPE'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')" >
-        <input *ngSwitchCase="'SYSTEM_FUNCTION'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')" >
-        <input *ngSwitchCase="'SYSTEM_OPERATION'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')" >
-        <input *ngSwitchCase="'SYSTEM_VERSION'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+        <input *ngSwitchCase="'SERVICE_TYPE'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')" >
+        <input *ngSwitchCase="'SERVICE_FUNCTION'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')" >
+        <input *ngSwitchCase="'SERVICE_OPERATION'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')" >
+        <input *ngSwitchCase="'SERVICE_VERSION'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
         <p-dropdown *ngSwitchCase="'RECEIVER_TYPE'" [options]="receivers" (onChange)="dt.filter($event.value, col.field, 'equals')" ></p-dropdown>
         <input *ngSwitchCase="'RECEIVER_DESTINATION'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')" >
         <p-dropdown class="dropdown" *ngSwitchCase="'HAS_HANDLING'" [options]="bools"  (onChange)="dt.filter($event.value, col.field, 'equals')" ></p-dropdown>
@@ -87,23 +88,26 @@
                 <b>Application Name:</b> {{catalog.APPLICATION_NAME}}
               </div>
               <div class="ui-g-12">
+                <b>Service Name:</b> {{catalog.SERVICE_NAME}}
+              </div>
+              <div class="ui-g-12">
                 <b>System:</b> {{catalog.SYSTEM}}
               </div>
               <div class="ui-g-12">
-                <b>System Type:</b> {{catalog.SYSTEM_TYPE}}
+                <b>System Type:</b> {{catalog.SERVICE_TYPE}}
               </div>
               <div class="ui-g-12">
-                <b>System Function:</b> {{catalog.SYSTEM_FUNCTION}}
+                <b>System Function:</b> {{catalog.SERVICE_FUNCTION}}
               </div>
               <div class="ui-g-12">
-                <b>System Operation:</b> {{catalog.SYSTEM_OPERATION}}
+                <b>System Operation:</b> {{catalog.SERVICE_OPERATION}}
               </div>
             </div>
           </div>
           <div class="ui-g-5 ui-md-5">
             <div class="ui-g">
               <div class="ui-g-12">
-                <b>System Version:</b> {{catalog.SYSTEM_VERSION}}
+                <b>System Version:</b> {{catalog.SERVICE_VERSION}}
               </div>
               <div class="ui-g-12">
                 <b>Receiver Type:</b> {{catalog.RECEIVER_TYPE}}

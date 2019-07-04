@@ -60,19 +60,22 @@ export class CatalogComponent implements OnInit {
     this.cols = [
       {field: 'EAI_CATALOG_ID', header: 'ID'},
       {field: 'APPLICATION_NAME', header: 'Application Name'},
+      {field: 'SERVICE_NAME', header: 'Service Name'},
       {field: 'SYSTEM', header: 'System'},
-      {field: 'SYSTEM_TYPE', header: 'System Type'},
-      {field: 'SYSTEM_FUNCTION', header: 'System Function'},
-      {field: 'SYSTEM_OPERATION', header: 'System Operation'},
-      {field: 'SYSTEM_VERSION', header: 'System Version'},
+      {field: 'SERVICE_TYPE', header: 'System Type'},
+      {field: 'SERVICE_FUNCTION', header: 'System Function'},
+      {field: 'SERVICE_OPERATION', header: 'System Operation'},
+      {field: 'SERVICE_VERSION', header: 'System Version'},
       {field: 'RECEIVER_TYPE', header: 'Receiver Type'},
       {field: 'RECEIVER_DESTINATION', header: 'Receiver Destination'},
       {field: 'HAS_HANDLING', header: 'Has Handling'},
       {field: 'HAS_SEQUENCE', header: 'Has Sequence'}
     ];
 
-    this.catalogService.getCatalogItems().subscribe((catalog: Catalog[]) => {
+    this.catalogService.getCatalogItems().subscribe((catalog) => {
+
       this.catalogArray = catalog;
+
       this.isLoading = false;
     });
 
