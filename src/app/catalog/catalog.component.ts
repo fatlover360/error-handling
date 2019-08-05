@@ -10,18 +10,18 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
   styleUrls: ['./catalog.component.css'],
   encapsulation: ViewEncapsulation.None,
   animations: [
-  trigger('rowExpansionTrigger', [
-    state('void', style({
-      transform: 'translateX(-10%)',
-      opacity: 0
-    })),
-    state('active', style({
-      transform: 'translateX(0)',
-      opacity: 1
-    })),
-    transition('* <=> *', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
-  ])
-]
+    trigger('rowExpansionTrigger', [
+      state('void', style({
+        transform: 'translateX(-10%)',
+        opacity: 0
+      })),
+      state('active', style({
+        transform: 'translateX(0)',
+        opacity: 1
+      })),
+      transition('* <=> *', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
+    ])
+  ]
 })
 export class CatalogComponent implements OnInit {
 
@@ -33,15 +33,13 @@ export class CatalogComponent implements OnInit {
   cols: any[];
   receivers: SelectItem[];
   bools: SelectItem[];
-  selectedCatalogs: Catalog[];
+  selectedCatalogs: Catalog[] = [];
+  selectedCatalog: Catalog = null;
 
   constructor(private catalogService: CatalogService, public messageService: MessageService) {
   }
 
   ngOnInit() {
-    //this.catalogService.getTest().subscribe( data => console.log(data));
-
-
     this.isLoading = true;
 
     this.receivers = [
@@ -73,9 +71,7 @@ export class CatalogComponent implements OnInit {
     ];
 
     this.catalogService.getCatalogItems().subscribe((catalog) => {
-
       this.catalogArray = catalog;
-
       this.isLoading = false;
     });
 
@@ -84,7 +80,7 @@ export class CatalogComponent implements OnInit {
         label: 'New',
         icon: 'pi pi-fw pi-plus',
         command: event => {
-          this.showModal(true);
+          this.showModal(null);
         }
       },
       {
@@ -92,7 +88,7 @@ export class CatalogComponent implements OnInit {
         icon: 'pi pi-fw pi-pencil',
         disabled: true,
         command: event => {
-          this.showModal(true);
+          this.showModal('selected');
         }
       },
       {
@@ -100,7 +96,7 @@ export class CatalogComponent implements OnInit {
         icon: 'pi pi-fw pi-trash',
         disabled: true,
         command: event => {
-          this.delete();
+          this.delete(-1);
         }
       },
       {
@@ -135,16 +131,28 @@ export class CatalogComponent implements OnInit {
     }
   }
 
-
-  showModal(event) {
-    console.log(event);
+  showModal(catalog) {
+    if(catalog != null && catalog != 'selected') {
+      this.selectedCatalog = catalog;
+    }else if (catalog == 'selected') {
+      this.selectedCatalog = this.selectedCatalogs[0];
+    }
     this.display = true;
+  }
+
+  close() {
+    this.selectedCatalogs = [];
+    this.selectedCatalog = null;
   }
 
   submit(event) {
     this.display = false;
-    if(event) {
-      this.addToast('success', 'Catalog', 'Catalog Item Added!');
+    if (event) {
+      this.catalogService.getCatalogItems().subscribe((catalog) => {
+        this.catalogArray = catalog;
+        this.isLoading = false;
+        this.addToast('success', 'Catalog', event == 'create'? 'Service added to Catalog': 'Service updated');
+      });
     } else {
       this.addToast('error', 'Catalog', 'Something went wrong!');
     }
@@ -160,17 +168,28 @@ export class CatalogComponent implements OnInit {
     this.selectedCatalogs = [];
   }
 
-  addToast(type: string, message: string, detail: string ) {
+  addToast(type: string, message: string, detail: string) {
     this.messageService.add({severity: type, summary: message, detail: detail});
   }
 
-  delete() {
-    this.catalogArray.forEach(catalog => {
-        if (this.selectedCatalogs.find(selected => selected.EAI_CATALOG_ID === catalog.EAI_CATALOG_ID)) {
-          this.catalogArray.splice(this.catalogArray.indexOf(catalog), 1);
-          this.selectedCatalogs.splice(this.selectedCatalogs.indexOf(catalog), 1);
+  delete(id) {
+    if (id == -1) {
+      this.catalogArray.forEach(catalog => {
+          if (this.selectedCatalogs.find(selected => selected.EAI_CATALOG_ID === catalog.EAI_CATALOG_ID)) {
+            this.catalogService.deleteCatalogItem(catalog.EAI_CATALOG_ID).subscribe(data => {
+              this.addToast('success', 'Service with ID: ' + catalog.EAI_CATALOG_ID + ' deleted with success.', 'Success');
+            }, error => {
+              this.addToast('error', 'Could not delete this service. This service is referenced in other tables.', 'Error');
+            });
+          }
         }
-      }
-    );
+      );
+    } else {
+      this.catalogService.deleteCatalogItem(id).subscribe(data => {
+        this.addToast('success', 'Service with ID: ' + id + ' deleted with success.', 'Success');
+      }, error => {
+        this.addToast('error', 'Could not delete this service. This service is referenced in other tables.', 'Error');
+      });
+    }
   }
 }

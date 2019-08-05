@@ -15,7 +15,7 @@ export class ControlDataComponent implements OnInit {
 
   ngOnInit() {
     this.isLoading = true;
-    this.controlDataService.getControlDataItems().then(controlData => {
+    this.controlDataService.getControlDataItems().subscribe(controlData => {
       this.controlDataArray = controlData;
       console.log(controlData);
       this.isLoading = false;

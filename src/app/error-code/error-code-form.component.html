@@ -1,4 +1,4 @@
-<form [formGroup]="formCatalog" (ngSubmit)="submitForm()" *ngIf="!loading">
+<form [formGroup]="formErrorCode" (ngSubmit)="submitForm()" *ngIf="!loading">
 
   <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
     <p-scrollPanel [style]="{width: '100%', height: '50%'}">
@@ -11,7 +11,7 @@
         </div>
         <div class="ui-grid-col-4">
           <p-message severity="error" text="Application Name is required"
-                     *ngIf="!formCatalog.controls['APPLICATION_NAME'].valid&&formCatalog.controls['APPLICATION_NAME'].dirty"></p-message>
+                     *ngIf="!formErrorCode.controls['APPLICATION_NAME'].valid&&formErrorCode.controls['APPLICATION_NAME'].dirty"></p-message>
         </div>
       </div>
       <div class="ui-grid-row">
@@ -23,7 +23,7 @@
         </div>
         <div class="ui-grid-col-4">
           <p-message severity="error" text="Service name is required"
-                     *ngIf="!formCatalog.controls['SERVICE_NAME'].valid&&formCatalog.controls['SERVICE_NAME'].dirty"></p-message>
+                     *ngIf="!formErrorCode.controls['SERVICE_NAME'].valid&&formErrorCode.controls['SERVICE_NAME'].dirty"></p-message>
         </div>
       </div>
       <div class="ui-grid-row">
@@ -35,7 +35,7 @@
         </div>
         <div class="ui-grid-col-4">
           <p-message severity="error" text="System is required"
-                     *ngIf="!formCatalog.controls['SYSTEM'].valid&&formCatalog.controls['SYSTEM'].dirty"></p-message>
+                     *ngIf="!formErrorCode.controls['SYSTEM'].valid&&formErrorCode.controls['SYSTEM'].dirty"></p-message>
         </div>
       </div>
       <div class="ui-grid-row">
@@ -47,7 +47,7 @@
         </div>
         <div class="ui-grid-col-4">
           <p-message severity="error" text="Service Type is required"
-                     *ngIf="!formCatalog.controls['SERVICE_TYPE'].valid&&formCatalog.controls['SERVICE_TYPE'].dirty"></p-message>
+                     *ngIf="!formErrorCode.controls['SERVICE_TYPE'].valid&&formErrorCode.controls['SERVICE_TYPE'].dirty"></p-message>
         </div>
       </div>
       <div class="ui-grid-row">
@@ -59,7 +59,7 @@
         </div>
         <div class="ui-grid-col-4">
           <p-message severity="error" text="Service Function is required"
-                     *ngIf="!formCatalog.controls['SERVICE_FUNCTION'].valid&&formCatalog.controls['SERVICE_FUNCTION'].dirty"></p-message>
+                     *ngIf="!formErrorCode.controls['SERVICE_FUNCTION'].valid&&formErrorCode.controls['SERVICE_FUNCTION'].dirty"></p-message>
         </div>
       </div>
       <div class="ui-grid-row">
@@ -71,7 +71,7 @@
         </div>
         <div class="ui-grid-col-4">
           <p-message severity="error" text="Service Operation is required"
-                     *ngIf="!formCatalog.controls['SERVICE_OPERATION'].valid&&formCatalog.controls['SERVICE_OPERATION'].dirty"></p-message>
+                     *ngIf="!formErrorCode.controls['SERVICE_OPERATION'].valid&&formErrorCode.controls['SERVICE_OPERATION'].dirty"></p-message>
         </div>
       </div>
       <div class="ui-grid-row">
@@ -83,7 +83,7 @@
         </div>
         <div class="ui-grid-col-4">
           <p-message severity="error" text="Service Version is required"
-                     *ngIf="!formCatalog.controls['SERVICE_VERSION'].valid&&formCatalog.controls['SERVICE_VERSION'].dirty"></p-message>
+                     *ngIf="!formErrorCode.controls['SERVICE_VERSION'].valid&&formErrorCode.controls['SERVICE_VERSION'].dirty"></p-message>
         </div>
       </div>
       <div class="ui-grid-row">
@@ -95,7 +95,7 @@
         </div>
         <div class="ui-grid-col-4">
           <p-message severity="error" text="Receiver Type is required"
-                     *ngIf="!formCatalog.controls['RECEIVER_TYPE'].valid&&formCatalog.controls['RECEIVER_TYPE'].dirty"></p-message>
+                     *ngIf="!formErrorCode.controls['RECEIVER_TYPE'].valid&&formErrorCode.controls['RECEIVER_TYPE'].dirty"></p-message>
         </div>
       </div>
       <div class="ui-grid-row">
@@ -107,7 +107,7 @@
         </div>
         <div class="ui-grid-col-4">
           <p-message severity="error" text="Receiver Destination is required"
-                     *ngIf="!formCatalog.controls['RECEIVER_DESTINATION'].valid&&formCatalog.controls['RECEIVER_DESTINATION'].dirty"></p-message>
+                     *ngIf="!formErrorCode.controls['RECEIVER_DESTINATION'].valid&&formErrorCode.controls['RECEIVER_DESTINATION'].dirty"></p-message>
         </div>
       </div>
       <div class="ui-grid-row">
@@ -141,7 +141,7 @@
   </div>
 
   <p-footer>
-    <button pButton type="submit" icon="pi pi-check" label="Submit" [disabled]="!formCatalog.valid"></button>
+    <button pButton type="submit" icon="pi pi-check" label="Submit" [disabled]="!formErrorCode.valid"></button>
     <button pButton type="button" icon="pi pi-close" (click)="cancel()" class="ui-button-secondary" label="Cancel"></button>
   </p-footer>
 </form>

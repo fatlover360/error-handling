@@ -68,7 +68,7 @@ td {
   font-size: 9pt;
 }
 
-.EAI_CATALOG_ID {
+/*.EAI_CATALOG_ID {
   width: 80px;
 }
 
@@ -84,19 +84,19 @@ td {
   width: 50px;
 }
 
-.SYSTEM_TYPE {
+.SERVICE_TYPE {
   width: 120px;
 }
 
-.SYSTEM_FUNCTION {
+.SERVICE_FUNCTION {
   width: 140px;
 }
 
-.SYSTEM_OPERATION {
+.SERVICE_OPERATION {
   width: 160px;
 }
 
-.SYSTEM_VERSION {
+.SERVICE_VERSION {
   width: 100px;
 }
 
@@ -115,7 +115,7 @@ td {
 .HAS_SEQUENCE {
   width: 80px;
 }
-
+*/
 .ui-grid-row {
   margin-bottom: 5px;
 }

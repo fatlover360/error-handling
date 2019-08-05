@@ -12,7 +12,7 @@ export class SideMenuComponent implements OnInit, AfterViewInit {
 
   model: MenuItem[];
 
-  @ViewChild('scrollPanel') layoutMenuScrollerViewChild: ScrollPanel;
+  @ViewChild('scrollPanel', { static: true }) layoutMenuScrollerViewChild: ScrollPanel;
 
   constructor(public app: AppComponent) { }
 

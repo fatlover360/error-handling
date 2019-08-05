@@ -18,25 +18,19 @@ export class CatalogService {
   }
 
   getCatalogItems() {
-    return this.http.get<any []>("http://polarising-p126:8080/catalog", this.httpOptions).pipe(map(res => res['Catalog']));
+    return this.http.get<any []>("http://192.168.1.70:8080/catalog", this.httpOptions).pipe(map(res => res['Catalog']));
   }
 
 
   addCatalogItem(catalogItem: Catalog) {
-    return this.http.post('/assets/catalog.json', catalogItem)
-      .toPromise()
-      .then(data => data);
+    return this.http.post('http://192.168.1.70:8080/catalog', catalogItem, this.httpOptions)
   }
 
   deleteCatalogItem(catalogId) {
-    return this.http.delete('/assets/catalog.json')
-      .toPromise()
-      .then(data => data);
+    return this.http.delete('http://192.168.1.70:8080/catalog?catalogid=' + catalogId, this.httpOptions);
   }
 
   updateCatalogItem(catalogItem: Catalog) {
-    return this.http.put('/assets/catalog.json', catalogItem)
-      .toPromise()
-      .then(data => data);
+    return this.http.put('http://192.168.1.70:8080/catalog', catalogItem, this.httpOptions);
   }
 }
