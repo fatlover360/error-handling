@@ -6,6 +6,7 @@ import {ConfigurationComponent} from './configuration/configuration.component';
 import {ErrorCodeComponent} from './error-code/error-code.component';
 import {ErrorServiceComponent} from './error-service/error-service.component';
 import {CatalogFormComponent} from './catalog/catalog-form.component';
+import {ControlSequenceComponent} from './control-sequence/control-sequence.component';
 
 const routes: Routes = [
   {path: 'control-data', component: ControlDataComponent},
@@ -19,7 +20,8 @@ const routes: Routes = [
   },
   {path: 'configuration', component: ConfigurationComponent},
   {path: 'error-code', component: ErrorCodeComponent},
-  {path: 'error-service', component: ErrorServiceComponent}
+  {path: 'error-service', component: ErrorServiceComponent},
+  {path: 'control-sequence', component: ControlSequenceComponent}
 ];
 
 @NgModule({

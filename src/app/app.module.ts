@@ -35,6 +35,7 @@ import {PanelModule} from "primeng/panel";
 import {DialogModule} from "primeng/dialog";
 import {ErrorCodeFormComponent} from './error-code/error-code-form.component';
 import {ErrorServiceFormComponent} from './error-service/error-service-form.component';
+import { ControlSequenceComponent } from './control-sequence/control-sequence.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import {ErrorServiceFormComponent} from './error-service/error-service-form.comp
     CatalogFormComponent,
     ErrorCodeFormComponent,
     ErrorServiceFormComponent,
-    AppSubMenuComponent
+    AppSubMenuComponent,
+    ControlSequenceComponent
   ],
   imports: [
     BrowserModule,

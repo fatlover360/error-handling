@@ -1,0 +1,78 @@
+<p-toast></p-toast>
+<p-menubar [model]="items"></p-menubar>
+
+<p-table #dt [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,20,100]"
+         [totalRecords]="controlSequenceArray.length" [columns]="cols" [value]="controlSequenceArray"
+         *ngIf="!isLoading" selectionMode="multiple"
+         [(selection)]="selectedControlSequences"
+         (onRowSelect)="onRowSelect($event)"
+         (onRowUnselect)="onRowUnselect($event)"
+         [responsive]="true"
+         dataKey="EH_CONTROL_SEQUENCE_ID">
+
+  <ng-template pTemplate="caption">
+    <div style="text-align: right">
+      <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+      <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header" let-columns >
+    <tr>
+      <th style="width: 3em"></th>
+      <th *ngFor="let col of cols" [ngClass]="col.field">
+        {{col.header}}
+      </th>
+      <!--th style="width:4em"></th-->
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-seqs let-columns="columns" let-rowIndex="rowIndex" let-expanded="expanded">
+    <tr [pSelectableRow]="seqs" [pSelectableRowIndex]="rowIndex" >
+      <td>
+        <a href="#" [pRowToggler]="seqs" (click)="selectSequence(seqs)">
+          <!--i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i-->
+        </a>
+      </td>
+      <td *ngFor="let col of cols" >
+        {{seqs[col.field]}}
+      </td>
+      <!--td>
+        <a pButton class="ui-button-secondary ui-button-severity" icon="pi pi-eye" [pRowToggler]="catalog" (click)="selectCatalog(catalog)"></a>
+      </td-->
+    </tr>
+  </ng-template>
+  <!--
+  <ng-template pTemplate="rowexpansion" let-errorscode let-columns="columns">
+    <tr>
+      <td [attr.colspan]="columns.length + 1">
+        <div class="ui-g ui-fluid" style="font-size:12px;padding:20px">
+          <div class="ui-g-5 ui-md-5">
+            <div class="ui-g">
+              <div class="ui-g-12">
+                <b>Error Code ID:</b> {{seqs.EAI_ERROR_CODE_ID}}
+              </div>
+              <div class="ui-g-12">
+                <b>Error Code:</b> {{seqs.EAI_ERROR_CODE}}
+              </div>
+              <div class="ui-g-12">
+                <b>Error Code Description:</b> {{seqs.EAI_ERROR_CODE_DESC}}
+              </div>
+              <div class="ui-g-12">
+                <b>Is Error:</b> {{seqs.IS_ERROR}}
+              </div>
+            </div>
+          </div>
+
+          <div class="ui-g-1 ui-md-1">
+            <div class="ui-m">
+              <button pButton type="button" class="ui-button-info" icon="pi pi-trash" label="Delete" (click)=delete(seqs.EH_CONTROL_SEQUENCE_ID)></button>
+              <button pButton (click)="showModal(seqs)" class="ui-button-success" icon="pi pi-pencil" label="Edit"></button>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </ng-template>  -->
+  <ng-template pTemplate="summary">
+    There are {{controlSequenceArray?.length}} Sequences.
+  </ng-template>
+</p-table>
