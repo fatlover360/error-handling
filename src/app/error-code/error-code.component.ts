@@ -150,24 +150,32 @@ export class ErrorCodeComponent implements OnInit {
   }
 
   delete(id) {
-   /* if (id == -1) {
-      this.errorCodeArray.forEach(catalog => {
-          if (this.selectedCatalogs.find(selected => selected.EAI_CATALOG_ID === catalog.EAI_CATALOG_ID)) {
-            this.catalogService.deleteCatalogItem(catalog.EAI_CATALOG_ID).subscribe(data => {
-              this.addToast('success', 'Service with ID: ' + catalog.EAI_CATALOG_ID + ' deleted with success.', 'Success');
+    if (id == -1) {
+      this.errorCodeArray.forEach(errorCode => {
+          if (this.selectedErrorCodes.find(selected => selected.EAI_ERROR_CODE_ID === errorCode.EAI_ERROR_CODE_ID)) {
+            this.errorCodeService.deleteErrorCodeItem(errorCode.EAI_ERROR_CODE_ID).subscribe(data => {
+              this.errorCodeService.getErrorCodeItems().subscribe((errorcode) => {
+                this.errorCodeArray = errorcode;
+                this.isLoading = false;
+                this.addToast('success', 'Error Code : ' + errorCode.EAI_ERROR_CODE_DESC + ' deleted with success.', 'Success');
+              });
             }, error => {
-              this.addToast('error', 'Could not delete this service. This service is referenced in other tables.', 'Error');
+              this.addToast('error', "Could not delete this error code, because it's referenced in other tables.", 'Error');
             });
           }
         }
       );
     } else {
-      this.catalogService.deleteCatalogItem(id).subscribe(data => {
-        this.addToast('success', 'Service with ID: ' + id + ' deleted with success.', 'Success');
-      }, error => {
-        this.addToast('error', 'Could not delete this service. This service is referenced in other tables.', 'Error');
-      });
-    }*/
+      this.errorCodeService.deleteErrorCodeItem(id).subscribe(data => {
+        this.errorCodeService.getErrorCodeItems().subscribe((errorcode) => {
+          this.errorCodeArray = errorcode;
+          this.isLoading = false;
+          this.addToast('success', 'Error Code : ' + errorcode.EAI_ERROR_CODE_DESC + ' deleted with success.', 'Success');
+        }, error => {
+          this.addToast('error', "Could not delete this error code, because it's referenced in other tables.", 'Error');
+        });
+      })
+    }
   }
 
 }

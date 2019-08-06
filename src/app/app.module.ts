@@ -34,6 +34,7 @@ import {MessageModule} from "primeng/message";
 import {PanelModule} from "primeng/panel";
 import {DialogResponse} from "./model/dialog-response.domain";
 import {DialogModule} from "primeng/dialog";
+import {ErrorCodeFormComponent} from './error-code/error-code-form.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import {DialogModule} from "primeng/dialog";
     MenuComponent,
     SideMenuComponent,
     CatalogFormComponent,
+    ErrorCodeFormComponent,
     AppSubMenuComponent
   ],
   imports: [

@@ -3,19 +3,20 @@ import {DynamicDialogRef, SelectItem} from 'primeng/api';
 import {DynamicDialogConfig} from 'primeng/api';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ErrorCodeService} from './error-code.service';
+import {ErrorCode} from '../model/error-code';
 
 @Component({
-  selector: 'app-catalog-form',
+  selector: 'app-error-code-form',
   templateUrl: 'error-code-form.component.html',
-  styleUrls: ['./catalog.component.css'],
+  styleUrls: ['./error-code.component.css'],
   providers: [FormBuilder, DynamicDialogRef, DynamicDialogConfig]
 })
 export class ErrorCodeFormComponent implements OnInit, OnDestroy {
 
   @Input() EAI_ERROR_CODE_ID: number;
   @Input() EAI_ERROR_CODE: string;
-  @Input() EAI_ERROR_CODE_DESCRIPTION: string;
-  @Input() ISERROR: string;
+  @Input() EAI_ERROR_CODE_DESC: string;
+  @Input() IS_ERROR: boolean;
 
   @Input() mode: string;
 
@@ -40,8 +41,8 @@ export class ErrorCodeFormComponent implements OnInit, OnDestroy {
 
     this.formErrorCode = new FormGroup({
       'EAI_ERROR_CODE': new FormControl(this.EAI_ERROR_CODE, Validators.required),
-      'EAI_ERROR_CODE_DESCRIPTION': new FormControl(this.EAI_ERROR_CODE_DESCRIPTION, Validators.required),
-      'ISERROR': new FormControl(this.ISERROR)
+      'EAI_ERROR_CODE_DESC': new FormControl(this.EAI_ERROR_CODE_DESC, Validators.required),
+      'IS_ERROR': new FormControl(this.IS_ERROR)
     });
     this.loading = false;
   }
@@ -52,14 +53,14 @@ export class ErrorCodeFormComponent implements OnInit, OnDestroy {
   }
 
   submitForm() {
-    /*
-    let catalog: Catalog = this.formErrorCode.value;
-    catalog.EAI_CATALOG_ID = this.EAI_CATALOG_ID;
-    catalog.HAS_HANDLING = this.HAS_HANDLING;
-    catalog.HAS_SEQUENCE = this.HAS_SEQUENCE;
+
+    let errorCode: ErrorCode = this.formErrorCode.value;
+    errorCode.IS_ERROR = this.IS_ERROR;
+    errorCode.EAI_ERROR_CODE_ID = this.EAI_ERROR_CODE_ID;
+
     console.log(this.mode);
     if(this.mode == 'edit'){
-      this.catalogService.updateCatalogItem(catalog).subscribe( data => {
+      this.errorCodeService.updateErrorCodeItem(errorCode).subscribe( data => {
         this.submitFormObj.emit(this.mode);
         this.display = false;
         this.formErrorCode.reset();
@@ -67,16 +68,15 @@ export class ErrorCodeFormComponent implements OnInit, OnDestroy {
         console.log(error);
       });
     }else {
-      this.catalogService.addCatalogItem(catalog).subscribe( data => {
+      this.errorCodeService.addErrorCodeItem(errorCode).subscribe( data => {
         this.submitFormObj.emit(this.mode);
         this.display = false;
-        this.HAS_HANDLING = false;
-        this.HAS_SEQUENCE = false;
+        this.IS_ERROR = false;
         this.formErrorCode.reset();
       }, error => {
         console.log(error);
       });
-    }*/
+    }
   }
 
   cancel() {
@@ -84,11 +84,8 @@ export class ErrorCodeFormComponent implements OnInit, OnDestroy {
     this.formErrorCode.reset();
   }
 
-  hasHandling() {
-   // this.HAS_HANDLING = !this.HAS_HANDLING
+  isError() {
+    this.IS_ERROR = !this.IS_ERROR;
   }
 
-  hasSequence() {
-    //this.HAS_SEQUENCE = !this.HAS_SEQUENCE
-  }
 }

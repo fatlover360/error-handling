@@ -177,7 +177,7 @@ export class CatalogComponent implements OnInit {
       this.catalogArray.forEach(catalog => {
           if (this.selectedCatalogs.find(selected => selected.EAI_CATALOG_ID === catalog.EAI_CATALOG_ID)) {
             this.catalogService.deleteCatalogItem(catalog.EAI_CATALOG_ID).subscribe(data => {
-              this.addToast('success', 'Service with ID: ' + catalog.EAI_CATALOG_ID + ' deleted with success.', 'Success');
+              this.addToast('success', 'Error code: ' + catalog.EAI_CATALOG_ID + ' deleted with success.', 'Success');
             }, error => {
               this.addToast('error', 'Could not delete this service. This service is referenced in other tables.', 'Error');
             });

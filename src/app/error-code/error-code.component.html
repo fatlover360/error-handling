@@ -1,6 +1,25 @@
 <p-toast></p-toast>
 <p-menubar [model]="items"></p-menubar>
 
+<p-dialog [(visible)]="display" [modal]="true" [responsive]="true" [style]="{minWidth: '600px'}" [minY]="70"
+          [maximizable]="true" [baseZIndex]="10000" (onHide)="close()">
+  <p-header>
+    {{selectedErrorCode == null ? 'Add New Error Code' : 'Edit'}}
+  </p-header>
+
+  <!-- FORM -->
+
+  <app-error-code-form *ngIf="selectedErrorCode != null"
+                       EAI_ERROR_CODE_ID="{{selectedErrorCode.EAI_ERROR_CODE_ID}}"
+                       EAI_ERROR_CODE="{{selectedErrorCode.EAI_ERROR_CODE}}"
+                       EAI_ERROR_CODE_DESC="{{selectedErrorCode.EAI_ERROR_CODE_DESC}}"
+                       IS_ERROR="{{selectedErrorCode.IS_ERROR == 'Y' ? true : false}}"
+                       mode="edit" (submitFormObj)="submit($event)"></app-error-code-form>
+
+  <app-error-code-form *ngIf="selectedErrorCode == null" mode="create" (submitFormObj)="submit($event)"></app-error-code-form>
+  <!-- END OF FORM -->
+
+</p-dialog>
 
 
 <p-table #dt [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,20,100]"
