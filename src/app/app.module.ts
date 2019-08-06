@@ -32,9 +32,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ToastModule} from 'primeng/toast';
 import {MessageModule} from "primeng/message";
 import {PanelModule} from "primeng/panel";
-import {DialogResponse} from "./model/dialog-response.domain";
 import {DialogModule} from "primeng/dialog";
 import {ErrorCodeFormComponent} from './error-code/error-code-form.component';
+import {ErrorServiceFormComponent} from './error-service/error-service-form.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +48,7 @@ import {ErrorCodeFormComponent} from './error-code/error-code-form.component';
     SideMenuComponent,
     CatalogFormComponent,
     ErrorCodeFormComponent,
+    ErrorServiceFormComponent,
     AppSubMenuComponent
   ],
   imports: [

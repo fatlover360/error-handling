@@ -1,0 +1,91 @@
+<form [formGroup]="formErrorService" (ngSubmit)="submitForm()" *ngIf="!loading">
+
+  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+    <p-scrollPanel [style]="{width: '100%', height: '50%'}">
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-3">
+          Application Name *:
+        </div>
+        <div class="ui-grid-col-5">
+          <input pInputText type="text" formControlName="APPLICATION_NAME" placeholder="Required">
+        </div>
+        <div class="ui-grid-col-4">
+          <p-message severity="error" text="Application Name is required"
+                     *ngIf="!formErrorService.controls['APPLICATION_NAME'].valid&&formErrorService.controls['APPLICATION_NAME'].dirty"></p-message>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-3">
+          Catalog ID *:
+        </div>
+        <div class="ui-grid-col-5">
+          <input pInputText type="text" formControlName="EAI_CATALOG_ID" placeholder="Required"/>
+        </div>
+        <div class="ui-grid-col-4">
+          <p-message severity="error" text="Catalog ID is required"
+                     *ngIf="!formErrorService.controls['EAI_CATALOG_ID'].valid&&formErrorService.controls['EAI_CATALOG_ID'].dirty"></p-message>
+        </div>
+      </div>
+
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-3">
+          System Native Code *:
+        </div>
+        <div class="ui-grid-col-5">
+          <input pInputText type="text" formControlName="SYSTEM_NATIVE_CODE" placeholder="Required"/>
+        </div>
+        <div class="ui-grid-col-4">
+          <p-message severity="error" text="System Native Code is required"
+                     *ngIf="!formErrorService.controls['SYSTEM_NATIVE_CODE'].valid&&formErrorService.controls['SYSTEM_NATIVE_CODE'].dirty"></p-message>
+        </div>
+      </div>
+
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-3">
+          Error Code ID *:
+        </div>
+        <div class="ui-grid-col-5">
+          <input pInputText type="text" formControlName="EAI_ERROR_CODE_ID" placeholder="Required"/>
+        </div>
+        <div class="ui-grid-col-4">
+          <p-message severity="error" text="Error Code ID is required"
+                     *ngIf="!formErrorService.controls['EAI_ERROR_CODE_ID'].valid&&formErrorService.controls['EAI_ERROR_CODE_ID'].dirty"></p-message>
+        </div>
+      </div>
+
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-3">
+          Is Error:
+        </div>
+        <div class="ui-grid-col-5">
+          <div class="ui-g-12"><p-checkbox name="IS_ERROR" [value]="IS_ERROR" (onChange)="isError()" formControlName="IS_ERROR"></p-checkbox></div>
+        </div>
+        <div class="ui-grid-col-4">
+        </div>
+      </div>
+
+      <div class="ui-grid-row" style="margin-top: 20px; margin-bottom: 20px">
+        <div class="ui-grid-col-3"></div>
+        <div class="ui-grid-col-5">
+
+        </div>
+        <div class="ui-grid-col-4"></div>
+      </div>
+    </p-scrollPanel>
+  </div>
+
+  <p-footer>
+    <button pButton type="submit" icon="pi pi-check" label="Submit" [disabled]="!formErrorService.valid"></button>
+    <button pButton type="button" icon="pi pi-close" (click)="cancel()" class="ui-button-secondary" label="Cancel"></button>
+  </p-footer>
+</form>
+
+
+
+
+
+
+
+
+
+

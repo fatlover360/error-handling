@@ -27,7 +27,6 @@ export class SideMenuComponent implements OnInit, AfterViewInit {
       {label: 'Catalog', icon: 'pi pi-fw pi-list', routerLink: 'catalog'},
       {label: 'Error Code', icon: 'pi pi-fw pi-times', routerLink: 'error-code'},
       {label: 'Error Service', icon: 'pi pi-fw pi-times-circle', routerLink: 'error-service'},
-      {label: 'new', icon: 'pi pi-fw pi-times-circle', routerLink: 'catalog/new'}
     ];
 
   }
