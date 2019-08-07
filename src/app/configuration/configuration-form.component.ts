@@ -2,35 +2,35 @@ import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angula
 import {DynamicDialogRef, SelectItem} from 'primeng/api';
 import {DynamicDialogConfig} from 'primeng/api';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ErrorService} from '../model/error-service';
-import {ErrorServiceService} from './error-service.service';
+import {ConfigurationService} from './configuration.service';
+import {Configuration} from '../model/configuration';
 
 @Component({
-  selector: 'app-error-service-form',
-  templateUrl: 'error-service-form.component.html',
-  styleUrls: ['./error-service.component.css'],
+  selector: 'app-error-code-form',
+  templateUrl: 'configuration-form.component.html',
+  styleUrls: ['./error-code.component.css'],
   providers: [FormBuilder, DynamicDialogRef, DynamicDialogConfig]
 })
-export class ErrorServiceFormComponent implements OnInit, OnDestroy {
+export class ConfigurationFormComponent implements OnInit, OnDestroy {
 
-  @Input() EAI_ERROR_SERVICE_ID: number;
-  @Input() APPLICATION_NAME: string;
   @Input() EAI_CATALOG_ID: number;
-  @Input() SYSTEM_NATIVE_CODE: string;
-  @Input() EAI_ERROR_CODE_ID: number;
-  @Input() IS_ERROR: boolean;
+  @Input() EAI_ERROR_CODE_ID: string;
+  @Input() MAX_RETRY: string;
+  @Input() WAIT_TIME_SECS: boolean;
+  @Input() DELTA_TIME_SECS: string;
+  @Input() DELTA_TIME_PERCENTAGE: string;
 
   @Input() mode: string;
 
-  @Input() display: boolean = false;
+  @Input() display: boolean;
 
   @Output() submitFormObj = new EventEmitter<string>();
   @Output() cancelForm = new EventEmitter<void>();
-  formErrorService: FormGroup = null;
+  formConfiguration: FormGroup = null;
   loading = true;
   booleans: SelectItem[];
 
-  constructor(private errorServiceService: ErrorServiceService) {
+  constructor(private configurationService: ConfigurationService) {
   }
 
   ngOnInit() {
@@ -41,13 +41,13 @@ export class ErrorServiceFormComponent implements OnInit, OnDestroy {
     this.booleans.push({label: 'SOAP', value: 'SOAP'});
     this.booleans.push({label: 'JMS', value: 'JMS'});
 
-    this.formErrorService = new FormGroup({
-      'APPLICATION_NAME': new FormControl(this.APPLICATION_NAME, Validators.required),
+    this.formConfiguration = new FormGroup({
       'EAI_CATALOG_ID': new FormControl(this.EAI_CATALOG_ID, Validators.required),
-      'SYSTEM_NATIVE_CODE': new FormControl(this.SYSTEM_NATIVE_CODE, Validators.required),
       'EAI_ERROR_CODE_ID': new FormControl(this.EAI_ERROR_CODE_ID, Validators.required),
-      'IS_ERROR': new FormControl(this.IS_ERROR)
-
+      'MAX_RETRY': new FormControl(this.MAX_RETRY, Validators.required),
+      'WAIT_TIME_SECS': new FormControl(this.WAIT_TIME_SECS, Validators.required),
+      'DELTA_TIME_SECS': new FormControl(this.DELTA_TIME_SECS, Validators.required),
+      'DELTA_TIME_PERCENTAGE': new FormControl(this.DELTA_TIME_PERCENTAGE, Validators.required)
     });
     this.loading = false;
   }
@@ -59,25 +59,22 @@ export class ErrorServiceFormComponent implements OnInit, OnDestroy {
 
   submitForm() {
 
-    const errorService: ErrorService = this.formErrorService.value;
-   // errorService.IS_ERROR = this.IS_ERROR;
-    // errorService.EAI_ERROR_SERVICE_ID = this.EAI_ERROR_SERVICE_ID;
+    const configuration: Configuration = this.formConfiguration.value;
 
     console.log(this.mode);
     if (this.mode === 'edit') {
-      this.errorServiceService.updateErrorServiceItem(errorService).subscribe( data => {
+      this.configurationService.updateConfigurationItem(configuration).subscribe( data => {
         this.submitFormObj.emit(this.mode);
         this.display = false;
-        this.formErrorService.reset();
+        this.formConfiguration.reset();
       }, error => {
         console.log(error);
       });
     } else {
-      this.errorServiceService.addErrorServiceItem(errorService).subscribe( data => {
+      this.configurationService.addConfigurationItem(configuration).subscribe( data => {
         this.submitFormObj.emit(this.mode);
         this.display = false;
-        this.IS_ERROR = false;
-        this.formErrorService.reset();
+        this.formConfiguration.reset();
       }, error => {
         console.log(error);
       });
@@ -86,11 +83,6 @@ export class ErrorServiceFormComponent implements OnInit, OnDestroy {
 
   cancel() {
     this.display = false;
-    this.formErrorService.reset();
+    this.formConfiguration.reset();
   }
-
-  isError() {
-    this.IS_ERROR = !this.IS_ERROR;
-  }
-
 }

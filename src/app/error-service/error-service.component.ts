@@ -41,11 +41,12 @@ export class ErrorServiceComponent implements OnInit {
     this.isLoading = true;
 
     this.cols = [
-      {field: 'APPLICATION_NAME', header: 'Application'},
-      {field: 'EAI_CATALOG_ID', header: 'Service'},
-      {field: 'SYSTEM_NATIVE_CODE', header: 'Native Code'},
-      {field: 'EAI_ERROR_CODE_ID', header: 'Error Code'},
-      {field: 'IS_ERROR', header: 'Is Error'}
+      {field: 'ID', header: '#', display: 'none'},
+      {field: 'APPLICATION_NAME', header: 'Application', display: 'table-cell'},
+      {field: 'EAI_CATALOG_ID', header: 'Service', display: 'table-cell'},
+      {field: 'SYSTEM_NATIVE_CODE', header: 'Native Code' , display: 'table-cell'},
+      {field: 'EAI_ERROR_CODE_ID', header: 'Error Code' , display: 'table-cell'},
+      {field: 'IS_ERROR', header: 'Is Error' , display: 'table-cell'}
     ];
 
     this.items = [
@@ -111,9 +112,9 @@ export class ErrorServiceComponent implements OnInit {
   }
 
   showModal(errorservice) {
-    if(errorservice != null && errorservice != 'selected') {
+    if (errorservice != null && errorservice !== 'selected') {
       this.selectedErrorService = errorservice;
-    }else if (errorservice == 'selected') {
+    } else if (errorservice === 'selected') {
       this.selectedErrorService = this.selectedErrorServices[0];
     }
     this.display = true;
@@ -152,17 +153,18 @@ export class ErrorServiceComponent implements OnInit {
   }
 
   delete(id) {
-    if (id == -1) {
+    if (id === -1) {
       this.errorServiceArray.forEach(errorService => {
-          if (this.selectedErrorServices.find(selected => selected.EAI_ERROR_SERVICE_ID === errorService.EAI_ERROR_SERVICE_ID)) {
-            this.errorServiceService.deleteErrorServiceItem(errorService.EAI_ERROR_CODE_ID).subscribe(data => {
-              this.errorServiceService.getErrorServiceItems().subscribe((data) => {
-                this.errorServiceArray = data;
+          if (this.selectedErrorServices.find(selected =>
+            selected.ErrorCode.EAI_ERROR_CODE_ID === errorService.ErrorCode.EAI_ERROR_CODE_ID)) {
+            this.errorServiceService.deleteErrorServiceItem(errorService.ErrorCode.EAI_ERROR_CODE_ID).subscribe(data => {
+              this.errorServiceService.getErrorServiceItems().subscribe((errorServiceData) => {
+                this.errorServiceArray = errorServiceData;
                 this.isLoading = false;
-                this.addToast('success', 'Error Service : ' + errorService.EAI_ERROR_SERVICE_ID + ' deleted with success.', 'Success');
+                this.addToast('success', 'Error Service : ' + errorService.ErrorCode.EAI_ERROR_CODE_ID + ' deleted with success.', 'Success');
               });
             }, error => {
-              this.addToast('error', "Could not delete this error, because it's referenced in other tables.", 'Error');
+              this.addToast('error', 'Could not delete this error, because it\'s referenced in other tables.', 'Error');
             });
           }
         }

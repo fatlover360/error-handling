@@ -31,7 +31,7 @@
          (onRowSelect)="onRowSelect($event)"
          (onRowUnselect)="onRowUnselect($event)"
          [responsive]="true"
-         dataKey="EAI_ERROR_CODE_ID">
+         dataKey="ID">
 
   <ng-template pTemplate="caption">
     <div style="text-align: right">
@@ -42,7 +42,7 @@
   <ng-template pTemplate="header" let-columns >
     <tr>
       <th style="width: 3em"></th>
-      <th *ngFor="let col of cols" [ngClass]="col.field">
+      <th *ngFor="let col of cols" [ngClass]="col.field" [ngStyle]="{'display': col.display}">
         {{col.header}}
       </th>
       <!--th style="width:4em"></th-->
@@ -55,7 +55,7 @@
           <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
         </a>
       </td>
-      <td *ngFor="let col of cols" >
+      <td *ngFor="let col of cols"  [ngStyle]="{'display': col.display}">
         {{services[col.field]}}
       </td>
       <!--td>
@@ -73,13 +73,13 @@
                 <b>Application Name:</b> {{services.APPLICATION_NAME}}
               </div>
               <div class="ui-g-12">
-                <b>Catalog ID:</b> {{services.EAI_CATALOG_ID}}
+                <b>Catalog ID:</b> {{services.Catalog.SERVICE_TYPE + '.' +  services.Catalog.SERVICE_FUNCTION + '.' +  services.Catalog.SERVICE_OPERATION+ '.'  + services.Catalog.SERVICE_NAME + '.' + services.Catalog.SERVICE_VERSION }}
               </div>
               <div class="ui-g-12">
                 <b>System Native Code:</b> {{services.SYSTEM_NATIVE_CODE}}
               </div>
               <div class="ui-g-12">
-                <b>Error Code ID:</b> {{services.EAI_ERROR_CODE_ID}}
+                <b>Error Code </b> {{services.ErrorCode.EAI_ERROR_CODE}}
               </div>
               <div class="ui-g-12">
                 <b>Is Error:</b> {{services.IS_ERROR}}

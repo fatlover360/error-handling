@@ -92,21 +92,6 @@ export class ControlSequenceComponent implements OnInit {
     }
   }
 
-  showModal(catalog) {
-    if (catalog != null && catalog != 'selected') {
-      this.selectedControlSequence = catalog;
-    } else if (catalog == 'selected') {
-      this.selectedControlSequence = this.selectedControlSequences[0];
-    }
-    this.display = true;
-  }
-
-  close() {
-    this.selectedControlSequences = [];
-    this.selectedControlSequence = null;
-  }
-
-
   clearSelection() {
     this.selectedControlSequences = [];
     this.items[0].disabled = true;

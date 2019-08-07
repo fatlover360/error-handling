@@ -1,5 +1,5 @@
 export class ControlData {
-  EH_CONTROL_ID: string;
+  EH_CONTROL_DATA_ID: string;
   EAI_CATALOG_ID: string;
   EAI_ERROR_CODE: string;
   EH_RETRY: string;
