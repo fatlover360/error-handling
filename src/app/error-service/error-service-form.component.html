@@ -4,26 +4,20 @@
     <p-scrollPanel [style]="{width: '100%', height: '50%'}">
       <div class="ui-grid-row">
         <div class="ui-grid-col-3">
-          Application Name *:
+          Application Name:
         </div>
         <div class="ui-grid-col-5">
-          <input pInputText type="text" formControlName="APPLICATION_NAME" placeholder="Required">
-        </div>
-        <div class="ui-grid-col-4">
-          <p-message severity="error" text="Application Name is required"
-                     *ngIf="!formErrorService.controls['APPLICATION_NAME'].valid&&formErrorService.controls['APPLICATION_NAME'].dirty"></p-message>
+          <!--input pInputText type="text" formControlName="APPLICATION_NAME" placeholder="Required"-->
+          <p-autoComplete formControlName="APPLICATION_NAME" [suggestions]="apps_names" (completeMethod)="search($event)" placeholder="Required" (onSelect)="getServices()" (onClear)="reset()"></p-autoComplete>
         </div>
       </div>
       <div class="ui-grid-row">
         <div class="ui-grid-col-3">
-          Catalog ID *:
+          Service:
         </div>
         <div class="ui-grid-col-5">
-          <input pInputText type="text" formControlName="EAI_CATALOG_ID" placeholder="Required"/>
-        </div>
-        <div class="ui-grid-col-4">
-          <p-message severity="error" text="Catalog ID is required"
-                     *ngIf="!formErrorService.controls['EAI_CATALOG_ID'].valid&&formErrorService.controls['EAI_CATALOG_ID'].dirty"></p-message>
+          <!--p-autoComplete formControlName="SERVICE" [suggestions]="catalogs" (completeMethod)="searchService($event)" placeholder="Required" [disabled]="appNameFilled" ></p-autoComplete-->
+          <p-dropdown [options]="servicesDropdown" formControlName="Catalog" [disabled]="appNameFilled"></p-dropdown>
         </div>
       </div>
 
@@ -42,20 +36,16 @@
 
       <div class="ui-grid-row">
         <div class="ui-grid-col-3">
-          Error Code ID *:
+          Error Code:
         </div>
         <div class="ui-grid-col-5">
-          <input pInputText type="text" formControlName="EAI_ERROR_CODE_ID" placeholder="Required"/>
-        </div>
-        <div class="ui-grid-col-4">
-          <p-message severity="error" text="Error Code ID is required"
-                     *ngIf="!formErrorService.controls['EAI_ERROR_CODE_ID'].valid&&formErrorService.controls['EAI_ERROR_CODE_ID'].dirty"></p-message>
+          <p-autoComplete formControlName="ErrorCode" [suggestions]="errorCodes" (completeMethod)="searchErrorCode($event)"></p-autoComplete>
         </div>
       </div>
 
       <div class="ui-grid-row">
         <div class="ui-grid-col-3">
-          Is Error:
+          Is Error *:
         </div>
         <div class="ui-grid-col-5">
           <div class="ui-g-12"><p-checkbox name="IS_ERROR" [value]="IS_ERROR" (onChange)="isError()" formControlName="IS_ERROR"></p-checkbox></div>

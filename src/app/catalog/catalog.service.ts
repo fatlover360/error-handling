@@ -1,7 +1,7 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Catalog} from '../model/catalog';
-import {map} from "rxjs/internal/operators";
+import {map} from 'rxjs/internal/operators';
 
 
 @Injectable()
@@ -18,12 +18,15 @@ export class CatalogService {
   }
 
   getCatalogItems() {
-    return this.http.get<any []>("http://192.168.1.70:8080/catalog", this.httpOptions).pipe(map(res => res['Catalog']));
+    return this.http.get<any []>('http://192.168.1.70:8080/catalog', this.httpOptions).pipe(map(res => res['Catalog']));
+  }
+  getCatalogItemsByParams(APPLICATION_NAME) {
+  return this.http.get<any []>('http://192.168.1.70:8080/service?APPLICATION_NAME=' + APPLICATION_NAME,
+    this.httpOptions);
   }
 
-
   addCatalogItem(catalogItem: Catalog) {
-    return this.http.post('http://192.168.1.70:8080/catalog', catalogItem, this.httpOptions)
+    return this.http.post('http://192.168.1.70:8080/catalog', catalogItem, this.httpOptions);
   }
 
   deleteCatalogItem(catalogId) {
@@ -32,5 +35,9 @@ export class CatalogService {
 
   updateCatalogItem(catalogItem: Catalog) {
     return this.http.put('http://192.168.1.70:8080/catalog', catalogItem, this.httpOptions);
+  }
+
+  getAppsNames(param) {
+    return this.http.get('http://192.168.1.70:8080/application?name=' + param, this.httpOptions);
   }
 }

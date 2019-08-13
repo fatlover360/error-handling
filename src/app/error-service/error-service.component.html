@@ -4,17 +4,18 @@
 <p-dialog [(visible)]="display" [modal]="true" [responsive]="true" [style]="{minWidth: '600px'}" [minY]="70"
           [maximizable]="true" [baseZIndex]="10000" (onHide)="close()">
   <p-header>
-    {{selectedErrorService == null ? 'Add New Error Code' : 'Edit'}}
+    {{selectedErrorService == null ? 'Add New Error Service' : 'Edit'}}
   </p-header>
 
   <!-- FORM -->
 
   <app-error-service-form *ngIf="selectedErrorService != null"
-                       EAI_ERROR_SERVICE_ID="{{selectedErrorService.EAI_ERROR_SERVICE_ID}}"
                        APPLICATION_NAME="{{selectedErrorService.APPLICATION_NAME}}"
-                       EAI_CATALOG_ID="{{selectedErrorService.EAI_CATALOG_ID}}"
+                       EAI_CATALOG_ID="{{selectedErrorService.Catalog.EAI_CATALOG_ID}}"
+                       CATALOG="{{selectedErrorService.Catalog}}"
                        SYSTEM_NATIVE_CODE="{{selectedErrorService.SYSTEM_NATIVE_CODE}}"
-                       EAI_ERROR_CODE_ID="{{selectedErrorService.EAI_ERROR_CODE_ID}}"
+                       EAI_ERROR_CODE_ID="{{selectedErrorService.ErrorCode.EAI_ERROR_CODE_ID}}"
+                       ERROR_CODE="{{selectedErrorService.ErrorCode}}"
                        IS_ERROR="{{selectedErrorService.IS_ERROR == 'Y' ? true : false}}"
                        mode="edit" (submitFormObj)="submit($event)"></app-error-service-form>
 
@@ -56,7 +57,14 @@
         </a>
       </td>
       <td *ngFor="let col of cols"  [ngStyle]="{'display': col.display}">
-        {{services[col.field]}}
+        <div *ngIf="col.subfield;then nested_object_content else normal_content"></div>
+        <ng-template #nested_object_content>
+          {{services[col.field][col.subfield]}}
+        </ng-template>
+        <ng-template #normal_content>
+          {{services[col.field]}}
+        </ng-template>
+
       </td>
       <!--td>
         <a pButton class="ui-button-secondary ui-button-severity" icon="pi pi-eye" [pRowToggler]="catalog" (click)="selectCatalog(catalog)"></a>
@@ -73,7 +81,7 @@
                 <b>Application Name:</b> {{services.APPLICATION_NAME}}
               </div>
               <div class="ui-g-12">
-                <b>Catalog ID:</b> {{services.Catalog.SERVICE_TYPE + '.' +  services.Catalog.SERVICE_FUNCTION + '.' +  services.Catalog.SERVICE_OPERATION+ '.'  + services.Catalog.SERVICE_NAME + '.' + services.Catalog.SERVICE_VERSION }}
+                <b>Catalog ID:</b> {{services.Catalog.SERVICE_TYPE + '.' +  services.Catalog.SERVICE_FUNCTION + '.' +  services.Catalog.SERVICE_OPERATION+ '.'  + services.Catalog.SERVICE_NAME + services.Catalog.SERVICE_VERSION }}
               </div>
               <div class="ui-g-12">
                 <b>System Native Code:</b> {{services.SYSTEM_NATIVE_CODE}}

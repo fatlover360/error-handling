@@ -21,6 +21,7 @@ import {ErrorCodeService} from './error-code/error-code.service';
 import {ErrorServiceService} from './error-service/error-service.service';
 import {PaginatorModule} from 'primeng/paginator';
 import {
+  AutoCompleteModule,
   ButtonModule, CheckboxModule, ContextMenuModule, DropdownModule, InputTextModule, MenubarModule, MessageService,
   MultiSelectModule,
   RadioButtonModule,
@@ -77,7 +78,8 @@ import { ControlSequenceComponent } from './control-sequence/control-sequence.co
     RadioButtonModule,
     CheckboxModule,
     MultiSelectModule,
-    DropdownModule
+    DropdownModule,
+    AutoCompleteModule
   ],
   providers: [HttpClient, ControlDataService, CatalogService, ConfigurationService, ErrorCodeService, ErrorServiceService, MessageService],
   bootstrap: [AppComponent],

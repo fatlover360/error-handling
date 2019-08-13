@@ -35,7 +35,8 @@ export class ErrorServiceComponent implements OnInit {
   selectedErrorServices: ErrorService[] = [];
   selectedErrorService: ErrorService = null;
 
-  constructor(private errorServiceService: ErrorServiceService, public messageService: MessageService) { }
+  constructor(private errorServiceService: ErrorServiceService, public messageService: MessageService) {
+  }
 
   ngOnInit() {
     this.isLoading = true;
@@ -43,10 +44,15 @@ export class ErrorServiceComponent implements OnInit {
     this.cols = [
       {field: 'ID', header: '#', display: 'none'},
       {field: 'APPLICATION_NAME', header: 'Application', display: 'table-cell'},
-      {field: 'EAI_CATALOG_ID', header: 'Service', display: 'table-cell'},
-      {field: 'SYSTEM_NATIVE_CODE', header: 'Native Code' , display: 'table-cell'},
-      {field: 'EAI_ERROR_CODE_ID', header: 'Error Code' , display: 'table-cell'},
-      {field: 'IS_ERROR', header: 'Is Error' , display: 'table-cell'}
+      {field: 'Catalog', subfield: 'SERVICE_TYPE', header: 'Service Type', display: 'table-cell'},
+      {field: 'Catalog', subfield: 'SERVICE_NAME', header: 'Service Name', display: 'table-cell'},
+      {field: 'Catalog', subfield: 'SERVICE_FUNCTION', header: 'Service Function', display: 'table-cell'},
+      {field: 'Catalog', subfield: 'SERVICE_OPERATION', header: 'Service Operation', display: 'table-cell'},
+      {field: 'Catalog', subfield: 'SERVICE_VERSION', header: 'Service Version', display: 'table-cell'},
+      {field: 'SYSTEM_NATIVE_CODE', header: 'Native Code', display: 'table-cell'},
+      {field: 'ErrorCode', subfield: 'EAI_ERROR_CODE', header: 'Error Code', display: 'table-cell'},
+      {field: 'ErrorCode', subfield: 'EAI_ERROR_CODE_DESC', header: 'Error Code Desc.', display: 'table-cell'},
+      {field: 'IS_ERROR', header: 'Is Error', display: 'table-cell'}
     ];
 
     this.items = [
@@ -131,7 +137,7 @@ export class ErrorServiceComponent implements OnInit {
       this.errorServiceService.getErrorServiceItems().subscribe((errorcode) => {
         this.errorServiceArray = errorcode;
         this.isLoading = false;
-        this.addToast('success', 'Error Code', event == 'create'? 'Error Code added': 'Error Code updated');
+        this.addToast('success', 'Error Code', event == 'create' ? 'Error Code added' : 'Error Code updated');
       });
     } else {
       this.addToast('error', 'Error Code', 'Something went wrong!');
@@ -156,8 +162,8 @@ export class ErrorServiceComponent implements OnInit {
     if (id === -1) {
       this.errorServiceArray.forEach(errorService => {
           if (this.selectedErrorServices.find(selected =>
-            selected.ErrorCode.EAI_ERROR_CODE_ID === errorService.ErrorCode.EAI_ERROR_CODE_ID)) {
-            this.errorServiceService.deleteErrorServiceItem(errorService.ErrorCode.EAI_ERROR_CODE_ID).subscribe(data => {
+            selected === errorService)) {
+            this.errorServiceService.deleteErrorServiceItem(errorService.ErrorCode.EAI_ERROR_CODE_ID, errorService.Catalog.EAI_CATALOG_ID).subscribe(data => {
               this.errorServiceService.getErrorServiceItems().subscribe((errorServiceData) => {
                 this.errorServiceArray = errorServiceData;
                 this.isLoading = false;
@@ -165,20 +171,21 @@ export class ErrorServiceComponent implements OnInit {
               });
             }, error => {
               this.addToast('error', 'Could not delete this error, because it\'s referenced in other tables.', 'Error');
+
             });
           }
         }
       );
     } else {
-      this.errorServiceService.deleteErrorServiceItem(id).subscribe(data => {
+      /*this.errorServiceService.deleteErrorServiceItem(id).subscribe(data => {
         this.errorServiceService.getErrorServiceItems().subscribe((errorcode) => {
           this.errorServiceArray = errorcode;
           this.isLoading = false;
           this.addToast('success', 'Error Service : ' + errorcode.EAI_ERROR_SERVICE_ID + ' deleted with success.', 'Success');
         }, error => {
-          this.addToast('error', "Could not delete this error, because it's referenced in other tables.", 'Error');
+          this.addToast('error', 'Could not delete this error, because it\'s referenced in other tables.', 'Error');
         });
-      })
+      });*/
     }
   }
 

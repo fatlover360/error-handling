@@ -17,7 +17,7 @@ export class ErrorServiceService {
   constructor(private http: HttpClient) {}
 
   getErrorServiceItems() {
-    return this.http.get<any []>("http://192.168.1.70:8080/errorservice", this.httpOptions).pipe(map(res => res['ErrorService']));
+    return this.http.get<any []>('http://192.168.1.70:8080/errorservice', this.httpOptions).pipe(map(res => res['ErrorService']));
   }
 
 
@@ -25,8 +25,8 @@ export class ErrorServiceService {
     return this.http.post('http://192.168.1.70:8080/errorservice', errorServiceItem , this.httpOptions)
   }
 
-  deleteErrorServiceItem(errorserviceid) {
-    return this.http.delete('http://192.168.1.70:8080/errorservice?errorserviceid=' + errorserviceid, this.httpOptions);
+  deleteErrorServiceItem(errorserviceid, catalogid) {
+    return this.http.delete('http://192.168.1.70:8080/errorservice?error_code_id=' + errorserviceid + '&eai_catalog_id=' + catalogid, this.httpOptions);
   }
 
   updateErrorServiceItem(errorServiceItem: ErrorService) {
