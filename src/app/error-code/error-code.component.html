@@ -22,14 +22,14 @@
 </p-dialog>
 
 
-<p-table #dt [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,20,100]"
+<p-table #dt [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,20,100]"
          [totalRecords]="errorCodeArray.length" [columns]="cols" [value]="errorCodeArray"
          *ngIf="!isLoading" selectionMode="multiple"
          [(selection)]="selectedErrorCodes"
          (onRowSelect)="onRowSelect($event)"
          (onRowUnselect)="onRowUnselect($event)"
          [responsive]="true"
-         dataKey="EAI_CATALOG_ID">
+         dataKey="EAI_ERROR_CODE">
 
   <ng-template pTemplate="caption">
     <div style="text-align: right">

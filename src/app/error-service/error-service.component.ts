@@ -24,7 +24,6 @@ import {MenuItem, MessageService, SelectItem} from 'primeng/api';
   ]
 })
 export class ErrorServiceComponent implements OnInit {
-
   isLoading: boolean;
   display: boolean;
   items: MenuItem[];
@@ -163,14 +162,18 @@ export class ErrorServiceComponent implements OnInit {
       this.errorServiceArray.forEach(errorService => {
           if (this.selectedErrorServices.find(selected =>
             selected === errorService)) {
-            this.errorServiceService.deleteErrorServiceItem(errorService.ErrorCode.EAI_ERROR_CODE_ID, errorService.Catalog.EAI_CATALOG_ID).subscribe(data => {
+            this.errorServiceService.deleteErrorServiceItem(errorService.ErrorCode.EAI_ERROR_CODE_ID,
+              errorService.Catalog.EAI_CATALOG_ID , errorService.APPLICATION_NAME,
+              errorService.SYSTEM_NATIVE_CODE
+            , errorService.IS_ERROR).subscribe(data => {
               this.errorServiceService.getErrorServiceItems().subscribe((errorServiceData) => {
                 this.errorServiceArray = errorServiceData;
                 this.isLoading = false;
-                this.addToast('success', 'Error Service : ' + errorService.ErrorCode.EAI_ERROR_CODE_ID + ' deleted with success.', 'Success');
+                this.addToast('success', 'Error Service : ' +
+                  errorService.ErrorCode.EAI_ERROR_CODE_ID + ' deleted with success.', 'Success');
               });
             }, error => {
-              this.addToast('error', 'Could not delete this error, because it\'s referenced in other tables.', 'Error');
+              this.addToast('error', 'Could not delete this error ' + errorService.SYSTEM_NATIVE_CODE, 'Error');
 
             });
           }

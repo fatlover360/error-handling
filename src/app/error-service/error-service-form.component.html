@@ -17,7 +17,7 @@
         </div>
         <div class="ui-grid-col-5">
           <!--p-autoComplete formControlName="SERVICE" [suggestions]="catalogs" (completeMethod)="searchService($event)" placeholder="Required" [disabled]="appNameFilled" ></p-autoComplete-->
-          <p-dropdown [options]="servicesDropdown" formControlName="Catalog" [disabled]="appNameFilled"></p-dropdown>
+          <p-dropdown [options]="servicesDropdown" formControlName="Catalog" name="serviceSelected" [disabled]="appNameFilled"></p-dropdown>
         </div>
       </div>
 

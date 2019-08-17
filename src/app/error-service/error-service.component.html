@@ -9,13 +9,13 @@
 
   <!-- FORM -->
 
-  <app-error-service-form *ngIf="selectedErrorService != null"
+  <app-error-service-form *ngIf="selectedErrorService != null" [ERROR_SERVICE] ="selectedErrorService"
                        APPLICATION_NAME="{{selectedErrorService.APPLICATION_NAME}}"
                        EAI_CATALOG_ID="{{selectedErrorService.Catalog.EAI_CATALOG_ID}}"
-                       CATALOG="{{selectedErrorService.Catalog}}"
+                       [CATALOG]="selectedErrorService.Catalog"
                        SYSTEM_NATIVE_CODE="{{selectedErrorService.SYSTEM_NATIVE_CODE}}"
                        EAI_ERROR_CODE_ID="{{selectedErrorService.ErrorCode.EAI_ERROR_CODE_ID}}"
-                       ERROR_CODE="{{selectedErrorService.ErrorCode}}"
+                       [ERROR_CODE]="selectedErrorService.ErrorCode"
                        IS_ERROR="{{selectedErrorService.IS_ERROR == 'Y' ? true : false}}"
                        mode="edit" (submitFormObj)="submit($event)"></app-error-service-form>
 
@@ -25,8 +25,8 @@
 </p-dialog>
 
 
-<p-table #dt [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,20,100]"
-         [totalRecords]="errorServiceArray.length" [columns]="cols" [value]="errorServiceArray"
+<p-table #dt [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,20,100]"
+         [totalRecords]="errorServiceArray ? errorServiceArray.length : 0 " [columns]="cols" [value]="errorServiceArray"
          *ngIf="!isLoading" selectionMode="multiple"
          [(selection)]="selectedErrorServices"
          (onRowSelect)="onRowSelect($event)"
@@ -106,7 +106,7 @@
     </tr>
   </ng-template>
   <ng-template pTemplate="summary">
-    There are {{errorServiceArray?.length}} Error Codes.
+    There are {{errorServiceArray ? errorServiceArray.length : 0 }} Error Services.
   </ng-template>
 </p-table>
 

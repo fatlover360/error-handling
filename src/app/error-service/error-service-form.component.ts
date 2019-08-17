@@ -18,6 +18,7 @@ import {ErrorCodeService} from '../error-code/error-code.service';
 })
 export class ErrorServiceFormComponent implements OnInit, OnDestroy {
 
+  @Input() ERROR_SERVICE: ErrorService;
   @Input() CATALOG: Catalog;
   @Input() ERROR_CODE: ErrorCode;
   @Input() EAI_ERROR_SERVICE_ID: number;
@@ -57,14 +58,13 @@ export class ErrorServiceFormComponent implements OnInit, OnDestroy {
       {label: 'Select Service', value: null}
     ];
 
-    this.formErrorService = new FormGroup({
-      'APPLICATION_NAME': new FormControl(this.APPLICATION_NAME),
-      'SYSTEM_NATIVE_CODE': new FormControl(this.SYSTEM_NATIVE_CODE, Validators.required),
-      'Catalog': new FormControl(this.serviceSelected),
-      'ErrorCode': new FormControl(this.ErrorCode),
-      'IS_ERROR': new FormControl(this.IS_ERROR)
+    this.setForm();
 
-    });
+    if (this.mode === 'edit') {
+
+      this.getServices(this.APPLICATION_NAME);
+    }
+
     this.loading = false;
   }
 
@@ -76,25 +76,17 @@ export class ErrorServiceFormComponent implements OnInit, OnDestroy {
   submitForm() {
     const errorService: ErrorService = this.formErrorService.value;
     errorService.IS_ERROR = this.IS_ERROR;
-   // errorService.ErrorCode = new ErrorCode();
-    /*if (this.formErrorService.value['Catalog']) {
-      errorService.Catalog = new Catalog(this.formErrorService.value['Catalog']['EAI_CATALOG_ID']);
-    }*/
     if (this.formErrorService.value['ErrorCode'] !== '') {
-      // errorService.ErrorCode = new ErrorCode();
-      console.log(this.formErrorService.value['ErrorCode']);
-      console.log(this.errorCodesInMem.find(d => d.EAI_ERROR_CODE === this.formErrorService.value['ErrorCode']));
-
       errorService.ErrorCode = this.errorCodesInMem.find(d => d.EAI_ERROR_CODE === this.formErrorService.value['ErrorCode']);
     }
 
-    console.log(errorService);
-
     if (this.mode === 'edit') {
-      this.errorServiceService.updateErrorServiceItem(errorService).subscribe(data => {
+      console.log(errorService);
+      this.errorServiceService.updateErrorServiceItem(errorService, this.ERROR_SERVICE).subscribe(data => {
         this.submitFormObj.emit(this.mode);
         this.display = false;
         this.formErrorService.reset();
+        this.reset();
       }, error => {
         console.log(error);
 
@@ -105,15 +97,27 @@ export class ErrorServiceFormComponent implements OnInit, OnDestroy {
         this.display = false;
         this.IS_ERROR = false;
         this.formErrorService.reset();
+        this.reset();
       }, error => {
         console.log(error);
       });
     }
   }
 
+  setForm() {
+    this.formErrorService = new FormGroup({
+      'APPLICATION_NAME': new FormControl(this.APPLICATION_NAME),
+      'SYSTEM_NATIVE_CODE': new FormControl(this.SYSTEM_NATIVE_CODE, Validators.required),
+      'Catalog': new FormControl(this.serviceSelected),
+      'ErrorCode': new FormControl(this.mode === 'edit' ? this.ERROR_CODE.EAI_ERROR_CODE : this.ErrorCode),
+      'IS_ERROR': new FormControl(this.IS_ERROR)
+    });
+  }
+
   cancel() {
     this.display = false;
     this.formErrorService.reset();
+    this.reset();
   }
 
   isError() {
@@ -121,6 +125,9 @@ export class ErrorServiceFormComponent implements OnInit, OnDestroy {
   }
 
   search(event) {
+    this.servicesDropdown = [
+      {label: 'Select Service', value: null}
+    ];
     this.catalogService.getAppsNames(event.query).subscribe((data: Application[]) => {
       this.apps_names = data.map(d => d.NAME);
     });
@@ -133,27 +140,36 @@ export class ErrorServiceFormComponent implements OnInit, OnDestroy {
     ];
   }
 
-  getServices() {
+  getServices(appname) {
     this.appNameFilled = false;
-    this.catalogService.getCatalogItemsByParams(this.formErrorService.value['APPLICATION_NAME']).subscribe((data: Catalog[]) => {
+    this.catalogService.getCatalogItemsByParams(this.mode === 'edit' ? appname : this.formErrorService.value['APPLICATION_NAME']).subscribe((data: Catalog[]) => {
       data.forEach(d => {
         this.servicesDropdown.push({
           label: d.SERVICE_TYPE + '.' + d.SERVICE_FUNCTION + '.' + d.SERVICE_OPERATION + '.' + d.SERVICE_VERSION,
           value: d
         });
       });
+
+      if ( this.mode === 'edit') {
+        this.servicesDropdown.forEach( x => {
+        if ( x.value !== null)  {
+          if (x.value['EAI_CATALOG_ID'] === this.CATALOG.EAI_CATALOG_ID) {
+            this.serviceSelected = x.value;
+          }
+        }
+        });
+        this.setForm();
+      }
     });
   }
 
   searchErrorCode(event) {
     let found: ErrorCode[] = [];
     this.errorCodesInMem.forEach(d => {
-      console.log(this.errorCodesInMem);
       if (d.EAI_ERROR_CODE.includes(event.query)) {
         found.push(d);
       }
     });
-    console.log(found);
     this.errorCodes = found.map(x => x.EAI_ERROR_CODE);
     found = [];
 
