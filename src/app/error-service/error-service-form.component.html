@@ -10,6 +10,10 @@
           <!--input pInputText type="text" formControlName="APPLICATION_NAME" placeholder="Required"-->
           <p-autoComplete formControlName="APPLICATION_NAME" [suggestions]="apps_names" (completeMethod)="search($event)" placeholder="Required" (onSelect)="getServices()" (onClear)="reset()"></p-autoComplete>
         </div>
+        <div class="ui-grid-col-4">
+          <p-message severity="error" text="Applciation name is required"
+                     *ngIf="!formErrorService.controls['APPLICATION_NAME'].valid&&formErrorService.controls['APPLICATION_NAME'].dirty"></p-message>
+        </div>
       </div>
       <div class="ui-grid-row">
         <div class="ui-grid-col-3">
@@ -48,7 +52,7 @@
           Is Error *:
         </div>
         <div class="ui-grid-col-5">
-          <div class="ui-g-12"><p-checkbox name="IS_ERROR" [value]="IS_ERROR" (onChange)="isError()" formControlName="IS_ERROR"></p-checkbox></div>
+          <div class="ui-g-12"><p-checkbox name="IS_ERROR" [value]="IS_ERROR" (onChange)="isError()" formControlName="IS_ERROR" binary="true" ></p-checkbox></div>
         </div>
         <div class="ui-grid-col-4">
         </div>

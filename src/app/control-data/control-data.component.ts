@@ -1,11 +1,11 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {MenuItem, MessageService, SelectItem} from 'primeng/api';
-import {Catalog} from '../model/catalog';
-import {CatalogService} from '../catalog/catalog.service';
+
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {ControlData} from '../model/control-data';
 import {ControlDataService} from './control-data.service';
 
+// @ts-ignore
 @Component({
   selector: 'app-control-data',
   templateUrl: './control-data.component.html',
@@ -76,7 +76,7 @@ export class ControlDataComponent implements OnInit {
 
     this.items = [
       {
-        label: 'Edit',
+        label: 'Republish',
         icon: 'pi pi-fw pi-pencil',
         disabled: true,
         command: event => {

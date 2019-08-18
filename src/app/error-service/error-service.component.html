@@ -53,7 +53,7 @@
     <tr [pSelectableRow]="services" [pSelectableRowIndex]="rowIndex" >
       <td>
         <a href="#" [pRowToggler]="services" (click)="selectErrorService(services)">
-          <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+          <!--i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i-->
         </a>
       </td>
       <td *ngFor="let col of cols"  [ngStyle]="{'display': col.display}">
@@ -71,7 +71,7 @@
       </td-->
     </tr>
   </ng-template>
-  <ng-template pTemplate="rowexpansion" let-services let-columns="columns">
+  <!--ng-template pTemplate="rowexpansion" let-services let-columns="columns">
     <tr>
       <td [attr.colspan]="columns.length + 1">
         <div class="ui-g ui-fluid" style="font-size:12px;padding:20px">
@@ -99,12 +99,12 @@
             <div class="ui-m">
               <button pButton type="button" class="ui-button-info" icon="pi pi-trash" label="Delete" (click)=delete(services.EAI_ERROR_SERVICE_ID)></button>
               <button pButton (click)="showModal(services)" class="ui-button-success" icon="pi pi-pencil" label="Edit"></button> <!--[disabled]="!form.valid"-->
-            </div>
+       <!--     </div>
           </div>
         </div>
       </td>
     </tr>
-  </ng-template>
+  </ng-template -->
   <ng-template pTemplate="summary">
     There are {{errorServiceArray ? errorServiceArray.length : 0 }} Error Services.
   </ng-template>

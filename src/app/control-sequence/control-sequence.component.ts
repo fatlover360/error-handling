@@ -31,9 +31,7 @@ export class ControlSequenceComponent implements OnInit {
   controlSequenceArray: ControlSequence[];
   cols: any[];
 
-  bools: SelectItem[];
   selectedControlSequences: ControlSequence[] = [];
-  selectedControlSequence: ControlSequence = null;
 
   constructor(private controlSequenceService: ControlSequenceService, public messageService: MessageService) {
   }

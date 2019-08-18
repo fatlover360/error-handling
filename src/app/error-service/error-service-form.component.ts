@@ -76,6 +76,7 @@ export class ErrorServiceFormComponent implements OnInit, OnDestroy {
   submitForm() {
     const errorService: ErrorService = this.formErrorService.value;
     errorService.IS_ERROR = this.IS_ERROR;
+
     if (this.formErrorService.value['ErrorCode'] !== '') {
       errorService.ErrorCode = this.errorCodesInMem.find(d => d.EAI_ERROR_CODE === this.formErrorService.value['ErrorCode']);
     }
@@ -92,6 +93,18 @@ export class ErrorServiceFormComponent implements OnInit, OnDestroy {
 
       });
     } else {
+      if (errorService.Catalog == null) {
+        delete  errorService.Catalog;
+      }
+
+      if (errorService.ErrorCode === '') {
+        delete  errorService.ErrorCode;
+      }
+
+      if (errorService.IS_ERROR !== true) {
+        errorService.IS_ERROR = false;
+      }
+
       this.errorServiceService.addErrorServiceItem(errorService).subscribe(data => {
         this.submitFormObj.emit(this.mode);
         this.display = false;
@@ -121,7 +134,11 @@ export class ErrorServiceFormComponent implements OnInit, OnDestroy {
   }
 
   isError() {
+    alert();
+    console.log('ERROR');
+    console.log(this.IS_ERROR);
     this.IS_ERROR = !this.IS_ERROR;
+    console.log(this.IS_ERROR);
   }
 
   search(event) {
