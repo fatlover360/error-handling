@@ -22,7 +22,7 @@ import {ErrorServiceService} from './error-service/error-service.service';
 import {PaginatorModule} from 'primeng/paginator';
 import {
   AutoCompleteModule,
-  ButtonModule, CheckboxModule, ContextMenuModule, DropdownModule, InputTextModule, MenubarModule, MessageService,
+  ButtonModule, CalendarModule, CheckboxModule, ContextMenuModule, DropdownModule, InputTextModule, MenubarModule, MessageService,
   MultiSelectModule, ProgressSpinnerModule,
   RadioButtonModule,
   ScrollPanelModule
@@ -38,6 +38,7 @@ import {ErrorCodeFormComponent} from './error-code/error-code-form.component';
 import {ErrorServiceFormComponent} from './error-service/error-service-form.component';
 import { ControlSequenceComponent } from './control-sequence/control-sequence.component';
 import {TruncatePipesModule} from 'angular-truncate-pipes';
+import {XmlPipe} from './commons/pipes/pretty-xml.pipe';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import {TruncatePipesModule} from 'angular-truncate-pipes';
     ErrorServiceFormComponent,
     AppSubMenuComponent,
     ControlSequenceComponent,
+    XmlPipe
   ],
   imports: [
     BrowserModule,
@@ -83,7 +85,8 @@ import {TruncatePipesModule} from 'angular-truncate-pipes';
     DropdownModule,
     AutoCompleteModule,
     ProgressSpinnerModule,
-    TruncatePipesModule
+    TruncatePipesModule,
+    CalendarModule
   ],
   providers: [HttpClient, ControlDataService, CatalogService, ConfigurationService, ErrorCodeService, ErrorServiceService, MessageService],
   bootstrap: [AppComponent],

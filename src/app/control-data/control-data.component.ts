@@ -4,12 +4,16 @@ import {MenuItem, MessageService, SelectItem} from 'primeng/api';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {ControlData} from '../model/control-data';
 import {ControlDataService} from './control-data.service';
+import {ControlDataUpd} from '../model/control-data-upd';
+import {Catalog} from '../model/catalog';
+import {Application} from '../model/app';
+import {CatalogService} from '../catalog/catalog.service';
 
 // @ts-ignore
 @Component({
   selector: 'app-control-data',
   templateUrl: './control-data.component.html',
-  styleUrls: ['./control-data.component.css'],
+  styleUrls: ['./control-data.component.css', '../app.component.css' ],
   encapsulation: ViewEncapsulation.None,
   animations: [
     trigger('rowExpansionTrigger', [
@@ -36,8 +40,18 @@ export class ControlDataComponent implements OnInit {
   bools: SelectItem[];
   selectedDatas: ControlData[] = [];
   selectedData: ControlData = null;
+  xml: string;
+  apps_names: string [];
 
-  constructor(private controlDataService: ControlDataService, public messageService: MessageService) {
+  // params
+  fromDate: Date = new Date();
+  toDate: Date = new Date();
+  TRANSACTION_ID: string;
+  APPLICATION_NAME: string;
+  ERROR_CODE: string;
+  STATUS: string;
+
+  constructor(private controlDataService: ControlDataService, public messageService: MessageService, public catalogService: CatalogService) {
   }
 
   ngOnInit() {
@@ -58,12 +72,13 @@ export class ControlDataComponent implements OnInit {
 
     this.cols = [
       {field: 'EH_CONTROL_DATA_ID', header: 'ID'},
-      {field: 'EAI_CATALOG_ID', header: 'Service'},
+      {field: 'Catalog', subfield: 'APPLICATION_NAME', header: 'Application Name', display: 'table-cell'},
+      {field: 'SERVICE_NAME', header: 'Service Name'},
       {field: 'EAI_ERROR_CODE', header: 'Error Code'},
       {field: 'EH_RETRY', header: 'Retry'},
       {field: 'EH_STATUS', header: 'Status'},
       {field: 'EH_PUBLISH_DATE', header: 'Publish Date'},
-      {field: 'SYSTEM_START_MSG', header: 'Start Message'},
+      {field: 'SERVICE_START_MSG', header: 'Start Message'},
       {field: 'HEADERS', header: 'Headers'},
       {field: 'INSERT_DATETIME', header: 'Insert Date'},
       {field: 'UPDATE_DATETIME', header: 'Update Date'}
@@ -80,7 +95,8 @@ export class ControlDataComponent implements OnInit {
         icon: 'pi pi-fw pi-pencil',
         disabled: true,
         command: event => {
-          this.showModal('selected');
+         // this.showModal('selected');
+          this.republish();
         }
       },
       {
@@ -107,10 +123,11 @@ export class ControlDataComponent implements OnInit {
     }
   }
 
-  showModal(catalog) {
-    if (catalog != null && catalog !== 'selected') {
-      this.selectedData = catalog;
-    } else if (catalog === 'selected') {
+  showModal(controlData, xml) {
+    this.xml = xml;
+    if (controlData != null && controlData !== 'selected') {
+      this.selectedData = controlData;
+    } else if (controlData === 'selected') {
       this.selectedData = this.selectedDatas[0];
     }
     this.display = true;
@@ -120,20 +137,6 @@ export class ControlDataComponent implements OnInit {
     this.selectedDatas = [];
     this.selectedData = null;
   }
-
-  submit(event) {
-   /* this.display = false;
-    if (event) {
-      this.controlDataService.getCatalogItems().subscribe((catalog) => {
-        this.controlData = catalog;
-        this.isLoading = false;
-        this.addToast('success', 'Catalog', event === 'create' ? 'Service added to Catalog' : 'Service updated');
-      });
-    } else {
-      this.addToast('error', 'Catalog', 'Something went wrong!');
-    }*/
-  }
-
   clearSelection() {
     this.selectedDatas = [];
     this.items[0].disabled = true;
@@ -149,24 +152,28 @@ export class ControlDataComponent implements OnInit {
     this.messageService.add({severity: type, summary: message, detail: detail});
   }
 
-  delete(id) {
-  /*  if (id === -1) {
-      this.controlData.forEach(catalog => {
-          if (this.selectedDatas.find(selected => selected.EAI_CATALOG_ID === catalog.EAI_CATALOG_ID)) {
-            this.controlDataService.deleteCatalogItem(catalog.EAI_CATALOG_ID).subscribe(data => {
-              this.addToast('success', 'Error code: ' + catalog.EAI_CATALOG_ID + ' deleted with success.', 'Success');
-            }, error => {
-              this.addToast('error', 'Could not delete this service. This service is referenced in other tables.', 'Error');
-            });
-          }
-        }
-      );
-    } else {
-      this.controlDataService.deleteCatalogItem(id).subscribe(data => {
-        this.addToast('success', 'Service with ID: ' + id + ' deleted with success.', 'Success');
-      }, error => {
-        this.addToast('error', 'Could not delete this service. This service is referenced in other tables.', 'Error');
+  republish() {
+    this.isLoading = true;
+    const array: ControlDataUpd = new ControlDataUpd();
+    array.ControlData = this.selectedDatas;
+    this.controlDataService.republish(array).subscribe( data => {
+      this.controlDataService.getControlDataItems().subscribe((controlData) => {
+        this.controlData = controlData;
+        this.close();
+        this.clearSelection();
+        this.isLoading = false;
+        this.addToast('success', 'Messages republished.', 'Control Data');
       });
-    }*/
+    }, error1 => {
+      alert();
+      console.log(error1);
+    });
   }
+
+  search(event) {
+    this.catalogService.getAppsNames(event.query).subscribe((data: Application[]) => {
+      this.apps_names = data.map(d => d.NAME);
+    });
+  }
+
 }

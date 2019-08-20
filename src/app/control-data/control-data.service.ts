@@ -1,6 +1,7 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {map} from 'rxjs/operators';
+import {ControlData} from '../model/control-data';
 
 
 @Injectable()
@@ -18,10 +19,10 @@ export class ControlDataService {
   }
 
   getControlDataItems() {
-    return this.http.get<any []>("http://192.168.1.70:8080/controldata", this.httpOptions).pipe(map(res => res['ControlData']));
+    return this.http.get<any []>('http://192.168.1.70:8080/controldata', this.httpOptions).pipe(map(res => res['ControlData']));
   }
 
-
-
-
+  republish(controlDataArray: any) {
+    return this.http.put('http://192.168.1.70:8080/republish', controlDataArray, this.httpOptions);
+  }
 }

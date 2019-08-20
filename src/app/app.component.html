@@ -1,18 +1,29 @@
+<!--<app-menu></app-menu>
+<div class="ui-g">
+  <div  class="ui-g-12 ui-md-2">
+    <app-side-menu></app-side-menu>
+  </div>
+  <div class="ui-g-12 ui-md-10 ui-g-nopad">
+    <div class="ui-g-12">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div> -->
+
+
 
 <div class="layout-wrapper" [ngClass]="{'layout-sidebar-active': sidebarActive}">
-  <app-menu></app-menu>
 
+  <app-menu></app-menu>
   <div class="layout-main">
     <app-side-menu></app-side-menu>
     <div class="layout-content">
-      <router-outlet></router-outlet>
+      <router-outlet ></router-outlet>
     </div>
 
-    <!--app-footer></app-footer-->
+
 
     <div class="layout-main-mask"></div>
   </div>
 
 </div>
-
-
