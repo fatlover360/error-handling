@@ -1,6 +1,10 @@
 <p-toast></p-toast>
 <p-menubar [model]="items"></p-menubar>
 
+<div class="ui-g-12" *ngIf="isLoading">
+  <p-progressSpinner  [style]="{width: '50px', height: '50px'}" strokeWidth="6"></p-progressSpinner>
+</div>
+
 <p-dialog [(visible)]="display" [modal]="true" [responsive]="true" [style]="{minWidth: '600px'}" [minY]="70"
           [maximizable]="true" [baseZIndex]="10000" (onHide)="close()">
   <p-header>
@@ -31,7 +35,7 @@
          [(selection)]="selectedErrorServices"
          (onRowSelect)="onRowSelect($event)"
          (onRowUnselect)="onRowUnselect($event)"
-         [responsive]="true"
+         [responsive]="true" resizableColumns="true"
          dataKey="ID">
 
   <ng-template pTemplate="caption">

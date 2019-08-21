@@ -82,7 +82,6 @@ export class ErrorServiceFormComponent implements OnInit, OnDestroy {
     }
 
     if (this.mode === 'edit') {
-      console.log(errorService);
       this.errorServiceService.updateErrorServiceItem(errorService, this.ERROR_SERVICE).subscribe(data => {
         this.submitFormObj.emit(this.mode);
         this.display = false;
@@ -134,11 +133,7 @@ export class ErrorServiceFormComponent implements OnInit, OnDestroy {
   }
 
   isError() {
-    alert();
-    console.log('ERROR');
-    console.log(this.IS_ERROR);
     this.IS_ERROR = !this.IS_ERROR;
-    console.log(this.IS_ERROR);
   }
 
   search(event) {

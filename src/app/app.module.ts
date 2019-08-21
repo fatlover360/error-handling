@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ControlDataComponent } from './control-data/control-data.component';
@@ -39,6 +39,7 @@ import {ErrorServiceFormComponent} from './error-service/error-service-form.comp
 import { ControlSequenceComponent } from './control-sequence/control-sequence.component';
 import {TruncatePipesModule} from 'angular-truncate-pipes';
 import {XmlPipe} from './commons/pipes/pretty-xml.pipe';
+import {ConfigurationFormComponent} from './configuration/configuration-form.component';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import {XmlPipe} from './commons/pipes/pretty-xml.pipe';
     ErrorServiceFormComponent,
     AppSubMenuComponent,
     ControlSequenceComponent,
+    ConfigurationFormComponent,
     XmlPipe
   ],
   imports: [

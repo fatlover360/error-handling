@@ -1,6 +1,10 @@
 <p-toast></p-toast>
 <p-menubar [model]="items"></p-menubar>
 
+<div class="ui-g-12" *ngIf="isLoading">
+  <p-progressSpinner  [style]="{width: '50px', height: '50px'}" strokeWidth="6"></p-progressSpinner>
+</div>
+
 <p-table #dt [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,20,100]"
          [totalRecords]="controlSequenceArray.length" [columns]="cols" [value]="controlSequenceArray"
          *ngIf="!isLoading" selectionMode="multiple"

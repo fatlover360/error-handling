@@ -7,7 +7,7 @@ import {MenuItem, MessageService, SelectItem} from 'primeng/api';
 @Component({
   selector: 'app-error-service',
   templateUrl: './error-service.component.html',
-  styleUrls: ['./error-service.component.css'],
+  styleUrls: ['./error-service.component.css', '../app.component.css'],
   encapsulation: ViewEncapsulation.None,
   animations: [
     trigger('rowExpansionTrigger', [
@@ -88,8 +88,12 @@ export class ErrorServiceComponent implements OnInit {
     ];
 
     this.errorServiceService.getErrorServiceItems().subscribe(data => {
-      console.log(data);
-      this.errorServiceArray = data;
+      if (data) {
+        this.errorServiceArray = data;
+      } else {
+        this.errorServiceArray = [];
+      }
+
       this.isLoading = false;
     });
   }
@@ -132,14 +136,15 @@ export class ErrorServiceComponent implements OnInit {
 
   submit(event) {
     this.display = false;
+    this.isLoading = true;
     if (event) {
       this.errorServiceService.getErrorServiceItems().subscribe((errorcode) => {
         this.errorServiceArray = errorcode;
         this.isLoading = false;
-        this.addToast('success', 'Error Code', event == 'create' ? 'Error Code added' : 'Error Code updated');
+        this.addToast('success', 'Error Service', event == 'create' ? 'Error Service added' : 'Error Service updated');
       });
     } else {
-      this.addToast('error', 'Error Code', 'Something went wrong!');
+      this.addToast('error', 'Error Service', 'Something went wrong!');
     }
   }
 
@@ -158,6 +163,7 @@ export class ErrorServiceComponent implements OnInit {
   }
 
   delete(id) {
+    this.isLoading = true;
     if (id === -1) {
       this.errorServiceArray.forEach(errorService => {
           if (this.selectedErrorServices.find(selected =>
@@ -174,7 +180,7 @@ export class ErrorServiceComponent implements OnInit {
               });
             }, error => {
               this.addToast('error', 'Could not delete this error ' + errorService.SYSTEM_NATIVE_CODE, 'Error');
-
+              this.isLoading = false;
             });
           }
         }

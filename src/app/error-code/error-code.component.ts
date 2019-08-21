@@ -7,7 +7,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 @Component({
   selector: 'app-error-code',
   templateUrl: './error-code.component.html',
-  styleUrls: ['./error-code.component.css'],
+  styleUrls: ['./error-code.component.css', '../app.component.css'],
   encapsulation: ViewEncapsulation.None,
   animations: [
     trigger('rowExpansionTrigger', [
@@ -80,7 +80,6 @@ export class ErrorCodeComponent implements OnInit {
     ];
 
     this.errorCodeService.getErrorCodeItems().subscribe(data => {
-      console.log(data);
       this.errorCodeArray = data;
       this.isLoading = false;
     });
@@ -124,6 +123,7 @@ export class ErrorCodeComponent implements OnInit {
 
   submit(event) {
     this.display = false;
+    this.isLoading = true;
     if (event) {
       this.errorCodeService.getErrorCodeItems().subscribe((errorcode) => {
         this.errorCodeArray = errorcode;
@@ -150,6 +150,7 @@ export class ErrorCodeComponent implements OnInit {
   }
 
   delete(id) {
+    this.isLoading = true;
     if (id == -1) {
       this.errorCodeArray.forEach(errorCode => {
           if (this.selectedErrorCodes.find(selected => selected.EAI_ERROR_CODE_ID === errorCode.EAI_ERROR_CODE_ID)) {

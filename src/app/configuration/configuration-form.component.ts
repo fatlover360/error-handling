@@ -4,15 +4,17 @@ import {DynamicDialogConfig} from 'primeng/api';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ConfigurationService} from './configuration.service';
 import {Configuration} from '../model/configuration';
+import {ErrorCode} from '../model/error-code';
 
 @Component({
-  selector: 'app-error-code-form',
+  selector: 'app-configuration-form',
   templateUrl: 'configuration-form.component.html',
-  styleUrls: ['./error-code.component.css'],
+  styleUrls: ['./configuration.component.css'],
   providers: [FormBuilder, DynamicDialogRef, DynamicDialogConfig]
 })
 export class ConfigurationFormComponent implements OnInit, OnDestroy {
-
+  @Input() ErrorCode: ErrorCode;
+  @Input() APPLICATION_NAME: string;
   @Input() EAI_CATALOG_ID: number;
   @Input() EAI_ERROR_CODE_ID: string;
   @Input() MAX_RETRY: string;
@@ -28,22 +30,17 @@ export class ConfigurationFormComponent implements OnInit, OnDestroy {
   @Output() cancelForm = new EventEmitter<void>();
   formConfiguration: FormGroup = null;
   loading = true;
-  booleans: SelectItem[];
+  serviceSelected: SelectItem;
 
   constructor(private configurationService: ConfigurationService) {
   }
 
   ngOnInit() {
 
-    this.booleans = [];
-    this.booleans.push({label: 'Select Value', value: ''});
-    this.booleans.push({label: 'HTTP', value: 'HTTP'});
-    this.booleans.push({label: 'SOAP', value: 'SOAP'});
-    this.booleans.push({label: 'JMS', value: 'JMS'});
-
     this.formConfiguration = new FormGroup({
-      'EAI_CATALOG_ID': new FormControl(this.EAI_CATALOG_ID, Validators.required),
-      'EAI_ERROR_CODE_ID': new FormControl(this.EAI_ERROR_CODE_ID, Validators.required),
+      'APPLICATION_NAME': new FormControl(this.APPLICATION_NAME, Validators.required),
+      'Catalog': new FormControl(this.serviceSelected, Validators.required),
+      'ErrorCode': new FormControl(this.ErrorCode, Validators.required),
       'MAX_RETRY': new FormControl(this.MAX_RETRY, Validators.required),
       'WAIT_TIME_SECS': new FormControl(this.WAIT_TIME_SECS, Validators.required),
       'DELTA_TIME_SECS': new FormControl(this.DELTA_TIME_SECS, Validators.required),
@@ -59,7 +56,7 @@ export class ConfigurationFormComponent implements OnInit, OnDestroy {
 
   submitForm() {
 
-    const configuration: Configuration = this.formConfiguration.value;
+    /*const configuration: Configuration = this.formConfiguration.value;
 
     console.log(this.mode);
     if (this.mode === 'edit') {
@@ -78,7 +75,7 @@ export class ConfigurationFormComponent implements OnInit, OnDestroy {
       }, error => {
         console.log(error);
       });
-    }
+    }*/
   }
 
   cancel() {

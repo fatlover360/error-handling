@@ -21,17 +21,17 @@
 
   <div class="ui-g-12 ui-md-12 ui-lg-2">
     <p>From Date:</p>
-    <p-calendar [(ngModel)]="fromDate" [showIcon]="true"></p-calendar>
+    <p-calendar [(ngModel)]="fromDate" [showIcon]="true" dateFormat="yy/mm/dd"></p-calendar>
   </div>
 
   <div class="ui-g-12 ui-md-12 ui-lg-2">
     <p>To Date:</p>
-    <p-calendar [(ngModel)]="toDate" [showIcon]="true"></p-calendar>
+    <p-calendar [(ngModel)]="toDate" [showIcon]="true" dateFormat="yy/mm/dd"></p-calendar>
   </div>
 
   <div class="ui-g-12 ui-md-12 ui-lg-1">
     <p style="visibility: hidden">NONE</p>
-    <button pButton  class="ui-button-success" icon="pi pi-search"></button>
+    <button pButton  (click)="getControlData()" class="ui-button-success" icon="pi pi-search"></button>
   </div>
   <p-toast></p-toast>
   <p-menubar [model]="items"></p-menubar>
@@ -44,7 +44,7 @@
 <p-dialog *ngIf="display" [(visible)]="display" [modal]="true" [responsive]="true" [style]="{width: '800px'}" [resizable]="true" [contentStyle]="{'max-height':'600px'}" [minY]="70"
           [maximizable]="true" [baseZIndex]="10000" (onHide)="close()">
   <p-header>
-    Select date for Republishing
+    {{xml == 'message' ? 'Service message' : 'Headers' }}
   </p-header>
 
   <!-- FORM -->
@@ -64,12 +64,12 @@
            [responsive]="true" [resizableColumns]="true"
            dataKey="EH_CONTROL_DATA_ID">
 
-    <ng-template pTemplate="caption">
+    <!--ng-template pTemplate="caption">
       <div style="text-align: right">
         <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
         <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
       </div>
-    </ng-template>
+    </ng-template-->
     <ng-template pTemplate="header" let-columns >
       <tr>
         <th style="width: 3em"></th>
@@ -170,7 +170,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="summary">
-      There are {{controlData?.length}} catalog items.
+      {{controlData?.length}} records.
     </ng-template>
   </p-table>
 </div>

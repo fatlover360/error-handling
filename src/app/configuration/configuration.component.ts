@@ -42,12 +42,13 @@ export class ConfigurationComponent implements OnInit {
     this.isLoading = true;
 
     this.cols = [
-      {field: 'EAI_CATALOG_ID', header: 'Catalog Id'},
-      {field: 'EAI_ERROR_CODE_ID', header: 'Error Code Id'},
-      {field: 'MAX_RETRY', header: 'Max Retries'},
-      {field: 'WAIT_TIME_SECS', header: 'Wait Time (seconds)'},
-      {field: 'DELTA_TIME_SECS', header: 'Delta Time (seconds)'},
-      {field: 'DELTA_TIME_PERCENTAGE', header: 'Delta Time (%)'}
+      {field: 'ID', header: '#Id', display: 'none'},
+      {field: 'SERVICE_NAME', header: 'Service', display: 'table-cell'},
+      {field: 'ErrorCode', subfield: 'EAI_ERROR_CODE', header: 'Error Code', display: 'table-cell'},
+      {field: 'MAX_RETRIES', header: 'Max Retries', display: 'table-cell'},
+      {field: 'WAIT_TIME_SECS', header: 'Wait Time (seconds)', display: 'table-cell'},
+      {field: 'DELTA_TIME_SECS', header: 'Delta Time (seconds)', display: 'table-cell'},
+      {field: 'DELTA_PERCENTAGE', header: 'Delta Time (%)', display: 'table-cell'}
     ];
 
     this.items = [

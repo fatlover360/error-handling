@@ -18,8 +18,8 @@ export class ControlDataService {
   constructor(private http: HttpClient) {
   }
 
-  getControlDataItems() {
-    return this.http.get<any []>('http://192.168.1.70:8080/controldata', this.httpOptions).pipe(map(res => res['ControlData']));
+  getControlDataItems(transactionid, error_code, status, application_name, fromDate, toDate) {
+    return this.http.get<any []>('http://192.168.1.70:8080/controldata?transaction_id=' + transactionid + '&error_code=' + error_code + '&status=' + status + '&application_name=' + application_name + '&from_date=' + fromDate + '&to_date=' + toDate , this.httpOptions).pipe(map(res => res['ControlData']));
   }
 
   republish(controlDataArray: any) {

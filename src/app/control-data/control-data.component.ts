@@ -8,12 +8,13 @@ import {ControlDataUpd} from '../model/control-data-upd';
 import {Catalog} from '../model/catalog';
 import {Application} from '../model/app';
 import {CatalogService} from '../catalog/catalog.service';
+import {formatDate} from '@angular/common';
 
 // @ts-ignore
 @Component({
   selector: 'app-control-data',
   templateUrl: './control-data.component.html',
-  styleUrls: ['./control-data.component.css', '../app.component.css' ],
+  styleUrls: ['./control-data.component.css', '../app.component.css'],
   encapsulation: ViewEncapsulation.None,
   animations: [
     trigger('rowExpansionTrigger', [
@@ -46,12 +47,13 @@ export class ControlDataComponent implements OnInit {
   // params
   fromDate: Date = new Date();
   toDate: Date = new Date();
-  TRANSACTION_ID: string;
-  APPLICATION_NAME: string;
-  ERROR_CODE: string;
-  STATUS: string;
+  TRANSACTION_ID = '';
+  APPLICATION_NAME = '';
+  ERROR_CODE = '';
+  STATUS = '';
 
-  constructor(private controlDataService: ControlDataService, public messageService: MessageService, public catalogService: CatalogService) {
+  constructor(private controlDataService: ControlDataService, public messageService: MessageService,
+              public catalogService: CatalogService) {
   }
 
   ngOnInit() {
@@ -84,18 +86,13 @@ export class ControlDataComponent implements OnInit {
       {field: 'UPDATE_DATETIME', header: 'Update Date'}
     ];
 
-    this.controlDataService.getControlDataItems().subscribe((controlData) => {
-      this.controlData = controlData;
-      this.isLoading = false;
-    });
-
     this.items = [
       {
         label: 'Republish',
         icon: 'pi pi-fw pi-pencil',
         disabled: true,
         command: event => {
-         // this.showModal('selected');
+          // this.showModal('selected');
           this.republish();
         }
       },
@@ -107,6 +104,8 @@ export class ControlDataComponent implements OnInit {
         }
       }
     ];
+
+    this.getControlData();
   }
 
   onRowSelect(event) {
@@ -137,6 +136,7 @@ export class ControlDataComponent implements OnInit {
     this.selectedDatas = [];
     this.selectedData = null;
   }
+
   clearSelection() {
     this.selectedDatas = [];
     this.items[0].disabled = true;
@@ -156,14 +156,17 @@ export class ControlDataComponent implements OnInit {
     this.isLoading = true;
     const array: ControlDataUpd = new ControlDataUpd();
     array.ControlData = this.selectedDatas;
-    this.controlDataService.republish(array).subscribe( data => {
-      this.controlDataService.getControlDataItems().subscribe((controlData) => {
-        this.controlData = controlData;
-        this.close();
-        this.clearSelection();
-        this.isLoading = false;
-        this.addToast('success', 'Messages republished.', 'Control Data');
-      });
+    this.controlDataService.republish(array).subscribe(data => {
+      this.controlDataService.getControlDataItems(this.TRANSACTION_ID, this.ERROR_CODE, this.STATUS, this.APPLICATION_NAME,
+        this.fromDate.getUTCFullYear() + '/' + (this.fromDate.getUTCMonth() + 1) + '/' + (this.fromDate.getUTCDate() + 1),
+        this.toDate.getUTCFullYear() + '/' + (this.toDate.getUTCMonth() + 1) + '/' + (this.fromDate.getUTCDate() + 1))
+        .subscribe((controlData) => {
+          this.controlData = controlData;
+          this.close();
+          this.clearSelection();
+          this.isLoading = false;
+          this.addToast('success', 'Messages republished.', 'Control Data');
+        });
     }, error1 => {
       alert();
       console.log(error1);
@@ -172,8 +175,45 @@ export class ControlDataComponent implements OnInit {
 
   search(event) {
     this.catalogService.getAppsNames(event.query).subscribe((data: Application[]) => {
-      this.apps_names = data.map(d => d.NAME);
+      if (data) {
+        this.apps_names = data.map(d => d.NAME);
+      }
     });
+  }
+
+  getControlData() {
+    this.isLoading = true;
+    console.log(this.fromDate);
+    console.log(this.toDate);
+    let from_date = '';
+    let to_date = '';
+    if (this.fromDate !== null) {
+      const monthFromDate = (this.fromDate.getUTCMonth() + 1).toString();
+      const daymonthFromDate = (this.fromDate.getUTCDate() + 1).toString();
+       from_date = this.fromDate.getUTCFullYear() + '/' + (monthFromDate.length > 1 ? monthFromDate : '0' + monthFromDate)
+        + '/' + (daymonthFromDate.length > 1 ? daymonthFromDate : '0' + daymonthFromDate);
+    }
+
+    if (this.toDate !== null ) {
+      const monthToDate = (this.toDate.getUTCMonth() + 1).toString();
+      const daymonthToDate = (this.toDate.getUTCDate() + 1).toString();
+      to_date = this.toDate.getUTCFullYear() + '/' + (monthToDate.length > 1 ? monthToDate : '0' + monthToDate) + '/'
+        + (daymonthToDate.length > 1 ? daymonthToDate : '0' + daymonthToDate);
+
+    }
+    this.controlDataService.getControlDataItems(this.TRANSACTION_ID, this.ERROR_CODE, this.STATUS, this.APPLICATION_NAME,
+      from_date,
+      to_date)
+      .subscribe((controlData) => {
+        if (controlData) {
+          this.controlData = controlData;
+        } else {
+          this.controlData = [];
+        }
+
+        this.isLoading = false;
+      });
+
   }
 
 }

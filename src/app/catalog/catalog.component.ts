@@ -7,7 +7,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 @Component({
   selector: 'app-catalog',
   templateUrl: './catalog.component.html',
-  styleUrls: ['./catalog.component.css'],
+  styleUrls: ['./catalog.component.css', '../app.component.css'],
   encapsulation: ViewEncapsulation.None,
   animations: [
     trigger('rowExpansionTrigger', [
@@ -147,6 +147,7 @@ export class CatalogComponent implements OnInit {
 
   submit(event) {
     this.display = false;
+    this.isLoading = false;
     if (event) {
       this.catalogService.getCatalogItems().subscribe((catalog) => {
         this.catalogArray = catalog;
@@ -173,13 +174,17 @@ export class CatalogComponent implements OnInit {
   }
 
   delete(id) {
+    this.isLoading = true;
     if (id == -1) {
       this.catalogArray.forEach(catalog => {
+        this.isLoading = true;
           if (this.selectedCatalogs.find(selected => selected.EAI_CATALOG_ID === catalog.EAI_CATALOG_ID)) {
             this.catalogService.deleteCatalogItem(catalog.EAI_CATALOG_ID).subscribe(data => {
               this.addToast('success', 'Error code: ' + catalog.EAI_CATALOG_ID + ' deleted with success.', 'Success');
+              this.isLoading = false;
             }, error => {
               this.addToast('error', 'Could not delete this service. This service is referenced in other tables.', 'Error');
+              this.isLoading = false;
             });
           }
         }
@@ -187,8 +192,14 @@ export class CatalogComponent implements OnInit {
     } else {
       this.catalogService.deleteCatalogItem(id).subscribe(data => {
         this.addToast('success', 'Service with ID: ' + id + ' deleted with success.', 'Success');
+        this.catalogService.getCatalogItems().subscribe(catalogs => {
+          this.catalogArray = catalogs;
+          this.isLoading = false;
+        });
+
       }, error => {
         this.addToast('error', 'Could not delete this service. This service is referenced in other tables.', 'Error');
+        this.isLoading = false;
       });
     }
   }

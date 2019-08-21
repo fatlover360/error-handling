@@ -7,7 +7,7 @@ import {ControlSequenceService} from './control-sequence.service';
 @Component({
   selector: 'app-control-sequence',
   templateUrl: './control-sequence.component.html',
-  styleUrls: ['./control-sequence.component.css'],
+  styleUrls: ['./control-sequence.component.css', '../app.component.css'],
   encapsulation: ViewEncapsulation.None,
   animations: [
     trigger('rowExpansionTrigger', [
@@ -69,8 +69,12 @@ export class ControlSequenceComponent implements OnInit {
     this.items[1].disabled = true;
 
     this.controlSequenceService.getControlSequences().subscribe(data => {
-      console.log(data);
-      this.controlSequenceArray = data;
+      if (data) {
+        this.controlSequenceArray = data;
+      } else {
+        this.controlSequenceArray = [];
+      }
+
       this.isLoading = false;
     });
   }
@@ -106,6 +110,7 @@ export class ControlSequenceComponent implements OnInit {
   }
 
   delete(id) {
+    this.isLoading = true;
     if (id == -1) {
       this.controlSequenceArray.forEach(controlSeq => {
           if (this.selectedControlSequences.find(selected => selected.EH_CONTROL_SEQUENCE_ID === controlSeq.EH_CONTROL_SEQUENCE_ID)) {

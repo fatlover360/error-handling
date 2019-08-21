@@ -1,5 +1,8 @@
 <p-toast></p-toast>
 <p-menubar [model]="items"></p-menubar>
+<div class="ui-g-12" *ngIf="isLoading">
+  <p-progressSpinner  [style]="{width: '50px', height: '50px'}" strokeWidth="6"></p-progressSpinner>
+</div>
 
 <p-dialog [(visible)]="display" [modal]="true" [responsive]="true" [style]="{minWidth: '600px'}" [minY]="70"
           [maximizable]="true" [baseZIndex]="10000" (onHide)="close()">
@@ -49,9 +52,9 @@
   <ng-template pTemplate="body" let-codes let-columns="columns" let-rowIndex="rowIndex" let-expanded="expanded">
     <tr [pSelectableRow]="codes" [pSelectableRowIndex]="rowIndex" >
       <td>
-        <a href="#" [pRowToggler]="codes" (click)="selectErrorCode(codes)">
+        <!--a href="#" [pRowToggler]="codes" (click)="selectErrorCode(codes)">
           <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
-        </a>
+        </a -->
       </td>
       <td *ngFor="let col of cols" >
         {{codes[col.field]}}
