@@ -114,9 +114,9 @@ export class ConfigurationComponent implements OnInit {
   }
 
   showModal(configuration) {
-    if(configuration != null && configuration != 'selected') {
+    if (configuration != null && configuration != 'selected') {
       this.selectedConfiguration = configuration;
-    }else if (configuration == 'selected') {
+    } else if (configuration == 'selected') {
       this.selectedConfiguration = this.selectedConfigurations[0];
     }
     this.display = true;
@@ -133,10 +133,10 @@ export class ConfigurationComponent implements OnInit {
       this.configurationService.getConfigurationItems().subscribe((configuration) => {
         this.configurationArray = configuration;
         this.isLoading = false;
-        this.addToast('success', 'Error Code', event == 'create'? 'Error Code added': 'Error Code updated');
+        this.addToast('success', 'Error Configuration', event == 'create' ? 'Error Configuration added' : 'Error Configuration updated');
       });
     } else {
-      this.addToast('error', 'Error Code', 'Something went wrong!');
+      this.addToast('error', 'Error Configuration', 'Something went wrong!');
     }
   }
 

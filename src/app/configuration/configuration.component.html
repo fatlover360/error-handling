@@ -10,7 +10,7 @@
   <!-- FORM -->
 
   <app-configuration-form *ngIf="selectedConfiguration != null"
-                       mode="edit" (submitFormObj)="submit($event)"></app-configuration-form>
+                       mode="edit" [Configuration]="selectedConfiguration" (submitFormObj)="submit($event)"></app-configuration-form>
 
   <app-configuration-form *ngIf="selectedConfiguration == null" mode="create" (submitFormObj)="submit($event)"></app-configuration-form>
   <!-- END OF FORM -->
@@ -18,7 +18,7 @@
 </p-dialog>
 
 
-<p-table #dt [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,20,100]"
+<p-table #dt [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,20,100]"
          [totalRecords]="configurationArray.length" [columns]="cols" [value]="configurationArray"
          *ngIf="!isLoading" selectionMode="multiple"
          [(selection)]="selectedConfigurations"

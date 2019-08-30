@@ -16,7 +16,7 @@ export class ConfigurationService {
   constructor(private http: HttpClient) {}
 
   getConfigurationItems() {
-    return this.http.get<any []>("http://192.168.1.70:8080/configuration", this.httpOptions).pipe(map(res => res['Configuration']));
+    return this.http.get<any []>('http://192.168.1.70:8080/configuration', this.httpOptions).pipe(map(res => res['Configuration']));
   }
 
 
@@ -28,7 +28,7 @@ export class ConfigurationService {
     return this.http.delete('http://192.168.1.70:8080/configuration?errorcodeid=' + configurationid, this.httpOptions);
   }
 
-  updateConfigurationItem(configuration: Configuration) {
+  updateConfigurationItem(configuration: Configuration, configDB: Configuration) {
     return this.http.put('http://192.168.1.70:8080/configuration', configuration, this.httpOptions);
   }
 }
