@@ -141,7 +141,9 @@ export class ConfigurationComponent implements OnInit {
 
   clearSelection() {
     this.selectedConfigurations = [];
+    this.selectedConfiguration = null;
     this.items[2].disabled = true;
+    this.items[1].disabled = true;
   }
 
   selectErrorCode(configuration: Configuration) {
@@ -155,30 +157,27 @@ export class ConfigurationComponent implements OnInit {
 
   delete(id) {
     if (id === -1) {
+      let x = 0;
       this.configurationArray.forEach(configuration => {
-          if (this.selectedConfigurations.find(selected => selected.EAI_ERROR_CODE_ID === configuration.EAI_ERROR_CODE_ID)) {
-            this.configurationService.deleteConfigurationItem(configuration.EAI_ERROR_CODE_ID).subscribe(data => {
+        x++;
+          if (this.selectedConfigurations.find(selected => selected.EAI_ERROR_CODE_ID === configuration.EAI_ERROR_CODE_ID
+            && selected.EAI_CATALOG_ID === configuration.EAI_CATALOG_ID)) {
+            this.configurationService.deleteConfigurationItem(configuration.EAI_ERROR_CODE_ID, configuration.EAI_CATALOG_ID).subscribe(data => {
               this.configurationService.getConfigurationItems().subscribe((conf) => {
                 this.configurationArray = conf;
-                this.isLoading = false;
                 this.addToast('success', 'Configuration : ' + configuration.EAI_ERROR_CODE_ID + ' deleted with success.', 'Success');
               });
             }, error => {
               this.addToast('error', 'Could not delete this configuration.', 'Error');
             });
+
+            if (x === this.configurationArray.length) {
+              this.clearSelection();
+              this.isLoading = false;
+            }
           }
         }
       );
-    } else {
-      this.configurationService.deleteConfigurationItem(id).subscribe(data => {
-        this.configurationService.getConfigurationItems().subscribe((errorcode) => {
-          this.configurationArray = errorcode;
-          this.isLoading = false;
-          this.addToast('success', 'Configuration : ' + errorcode.EAI_ERROR_CODE_ID + ' deleted with success.', 'Success');
-        }, error => {
-          this.addToast('error', 'Could not delete this configuration.', 'Error');
-        });
-      })
     }
   }
 

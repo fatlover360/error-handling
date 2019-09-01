@@ -21,7 +21,7 @@ export class ConfigurationFormComponent implements OnInit, OnDestroy {
   @Input() Catalog: Catalog;
   @Input() APPLICATION_NAME: string;
   @Input() EAI_CATALOG_ID: number;
-  @Input() EAI_ERROR_CODE_ID: string;
+  @Input() EAI_ERROR_CODE_ID: number;
   @Input() MAX_RETRIES: string;
   @Input() WAIT_TIME_SECS: boolean;
   @Input() DELTA_TIME_SECS: string;
@@ -61,13 +61,12 @@ export class ConfigurationFormComponent implements OnInit, OnDestroy {
 
     if (this.mode === 'edit') {
       this.getServices(this.Configuration.Catalog.APPLICATION_NAME);
+      this.EAI_ERROR_CODE_ID = this.Configuration.ErrorCode.EAI_ERROR_CODE_ID;
+      this.EAI_CATALOG_ID = this.Configuration.Catalog.EAI_CATALOG_ID;
     }
 
     this.loading = false;
 
-
-
-    this.loading = false;
   }
 
   ngOnDestroy() {
@@ -85,6 +84,9 @@ export class ConfigurationFormComponent implements OnInit, OnDestroy {
 
     if (this.mode === 'edit') {
       delete configurationToSubmit.APPLICATION_NAME;
+
+      configurationToSubmit.EAI_ERROR_CODE_ID = this.EAI_ERROR_CODE_ID.toString();
+      configurationToSubmit.EAI_CATALOG_ID = this.EAI_CATALOG_ID.toString();
 
       this.configurationService.updateConfigurationItem(configurationToSubmit, this.Configuration).subscribe(data => {
         this.submitFormObj.emit(this.mode);
@@ -145,6 +147,7 @@ export class ConfigurationFormComponent implements OnInit, OnDestroy {
         'DELTA_TIME_SECS': new FormControl(this.Configuration.DELTA_TIME_SECS, Validators.required),
         'DELTA_PERCENTAGE': new FormControl(this.Configuration.DELTA_PERCENTAGE, Validators.required)
       });
+
     }
 
   }

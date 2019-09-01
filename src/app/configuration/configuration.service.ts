@@ -26,8 +26,8 @@ export class ConfigurationService {
     return this.http.post(environment.url + '/configuration', configuration , this.httpOptions)
   }
 
-  deleteConfigurationItem(configurationid) {
-    return this.http.delete(environment.url + '/configuration?errorcodeid=' + configurationid, this.httpOptions);
+  deleteConfigurationItem(errorcodeid, catalogid) {
+    return this.http.delete(environment.url + '/configuration?catalogid=' + catalogid + '&errocodeid=' + errorcodeid, this.httpOptions);
   }
 
   updateConfigurationItem(configuration: Configuration, configDB: Configuration) {
