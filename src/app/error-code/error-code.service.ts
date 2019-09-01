@@ -2,6 +2,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {ErrorCode} from '../model/error-code';
 import {map} from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class ErrorCodeService {
@@ -15,19 +16,19 @@ export class ErrorCodeService {
   constructor(private http: HttpClient) {}
 
   getErrorCodeItems() {
-    return this.http.get<any []>("http://192.168.1.70:8080/errorcode", this.httpOptions).pipe(map(res => res['ErrorCode']));
+    return this.http.get<any []>(environment.url + '/errorcode', this.httpOptions).pipe(map(res => res['ErrorCode']));
   }
 
 
   addErrorCodeItem(errorCodeItem: ErrorCode) {
-    return this.http.post('http://192.168.1.70:8080/errorcode', errorCodeItem , this.httpOptions)
+    return this.http.post(environment.url + '/errorcode', errorCodeItem , this.httpOptions)
   }
 
   deleteErrorCodeItem(errorcodeid) {
-    return this.http.delete('http://192.168.1.70:8080/errorcode?errorcodeid=' + errorcodeid, this.httpOptions);
+    return this.http.delete(environment.url + '/errorcode?errorcodeid=' + errorcodeid, this.httpOptions);
   }
 
   updateErrorCodeItem(errorCodeItem: ErrorCode) {
-    return this.http.put('http://192.168.1.70:8080/errorcode', errorCodeItem, this.httpOptions);
+    return this.http.put(environment.url + '/errorcode', errorCodeItem, this.httpOptions);
   }
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {map} from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +17,10 @@ export class ControlSequenceService {
   constructor(private http: HttpClient) {}
 
   getControlSequences() {
-    return this.http.get<any []>("http://192.168.1.70:8080/controlsequence", this.httpOptions).pipe(map(res => res['ControlSequence']));
+    return this.http.get<any []>(environment.url + '/controlsequence', this.httpOptions).pipe(map(res => res['ControlSequence']));
   }
 
   deleteControlSequence(controlsequenceid) {
-    return this.http.delete('http://192.168.1.70:8080/controlsequence?controlsequenceid=' + controlsequenceid, this.httpOptions);
+    return this.http.delete(environment.url + '/controlsequence?controlsequenceid=' + controlsequenceid, this.httpOptions);
   }
 }

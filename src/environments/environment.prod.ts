@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  url: 'http://polarising-p126:8080'
 };

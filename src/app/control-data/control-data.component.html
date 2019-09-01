@@ -1,27 +1,27 @@
 <div class="ui-lg-12" style="font-size: 12px;">
   <div class="ui-g-12 ui-md-12 ui-lg-2" >
     <p>Transaction ID:</p>
-    <input type="text" pInputText [(ngModel)]="TRANSACTION_ID" placeholder="Transaction ID" size="30"/>
+    <input style="font-size:12px;" type="text" pInputText [(ngModel)]="TRANSACTION_ID" placeholder="Transaction ID" size="30"/>
   </div>
 
   <div class="ui-g-12 ui-md-12 ui-lg-2">
     <p>Error Code:</p>
-    <input type="text" pInputText [(ngModel)]="ERROR_CODE" placeholder="Error Code" size="30"/>
+    <input style="font-size:12px;" type="text" pInputText [(ngModel)]="ERROR_CODE" placeholder="Error Code" size="30"/>
   </div>
 
   <div class="ui-g-12 ui-md-12 ui-lg-1">
     <p>Status:</p>
-    <input type="text" pInputText [(ngModel)]="STATUS" placeholder="Status" size="10" />
+    <input style="font-size:12px;" type="text" pInputText [(ngModel)]="STATUS" placeholder="Status" size="10" class="inputtextcontrol" />
   </div>
 
-  <div class="ui-g-12 ui-md-12 ui-lg-2">
+  <div class="ui-g-12 ui-md-12 ui-lg-2" >
     <p>Application Name:</p>
     <p-autoComplete [(ngModel)]="APPLICATION_NAME" [suggestions]="apps_names" (completeMethod)="search($event)" placeholder="Application Name" size="30"></p-autoComplete>
   </div>
 
   <div class="ui-g-12 ui-md-12 ui-lg-2">
     <p>From Date:</p>
-    <p-calendar [(ngModel)]="fromDate" [showIcon]="true" dateFormat="yy/mm/dd"></p-calendar>
+    <p-calendar [(ngModel)]="fromDate" [showIcon]="true" dateFormat="yy/mm/dd" [ngStyle]="{width: '20px'}" class="inputControlData"></p-calendar>
   </div>
 
   <div class="ui-g-12 ui-md-12 ui-lg-2">

@@ -2,6 +2,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {map} from 'rxjs/operators';
 import {ControlData} from '../model/control-data';
+import { environment } from '../../environments/environment';
 
 
 @Injectable()
@@ -19,10 +20,10 @@ export class ControlDataService {
   }
 
   getControlDataItems(transactionid, error_code, status, application_name, fromDate, toDate) {
-    return this.http.get<any []>('http://192.168.1.70:8080/controldata?transaction_id=' + transactionid + '&error_code=' + error_code + '&status=' + status + '&application_name=' + application_name + '&from_date=' + fromDate + '&to_date=' + toDate , this.httpOptions).pipe(map(res => res['ControlData']));
+    return this.http.get<any []>(environment.url + '/controldata?transaction_id=' + transactionid + '&error_code=' + error_code + '&status=' + status + '&application_name=' + application_name + '&from_date=' + fromDate + '&to_date=' + toDate , this.httpOptions).pipe(map(res => res['ControlData']));
   }
 
   republish(controlDataArray: any) {
-    return this.http.put('http://192.168.1.70:8080/republish', controlDataArray, this.httpOptions);
+    return this.http.put(environment.url + '/republish', controlDataArray, this.httpOptions);
   }
 }

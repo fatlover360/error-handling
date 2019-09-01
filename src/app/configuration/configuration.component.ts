@@ -4,12 +4,11 @@ import {ConfigurationService} from './configuration.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {MenuItem, MessageService, SelectItem} from 'primeng/api';
 import {ErrorCode} from '../model/error-code';
-import {ErrorCodeService} from '../error-code/error-code.service';
 
 @Component({
   selector: 'app-configuration',
   templateUrl: './configuration.component.html',
-  styleUrls: ['./configuration.component.css'],
+  styleUrls: ['./configuration.component.css', '../app.component.css'],
   encapsulation: ViewEncapsulation.None,
   animations: [
     trigger('rowExpansionTrigger', [

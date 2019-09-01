@@ -35,7 +35,7 @@
          [(selection)]="selectedErrorServices"
          (onRowSelect)="onRowSelect($event)"
          (onRowUnselect)="onRowUnselect($event)"
-         [responsive]="true" resizableColumns="true"
+         [responsive]="true" [resizableColumns]="true"
          dataKey="ID">
 
   <ng-template pTemplate="caption">
@@ -47,7 +47,7 @@
   <ng-template pTemplate="header" let-columns >
     <tr>
       <th style="width: 3em"></th>
-      <th *ngFor="let col of cols" [ngClass]="col.field" [ngStyle]="{'display': col.display}">
+      <th *ngFor="let col of cols" [ngClass]="col.field" [ngStyle]="{'display': col.display}" pResizableColumn>
         {{col.header}}
       </th>
       <!--th style="width:4em"></th-->
@@ -60,7 +60,7 @@
           <!--i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i-->
         </a>
       </td>
-      <td *ngFor="let col of cols"  [ngStyle]="{'display': col.display}">
+      <td *ngFor="let col of cols"  [ngStyle]="{'display': col.display}" class="ui-resizable-column">
         <div *ngIf="col.subfield;then nested_object_content else normal_content"></div>
         <ng-template #nested_object_content>
           {{services[col.field][col.subfield]}}
@@ -110,7 +110,7 @@
     </tr>
   </ng-template -->
   <ng-template pTemplate="summary">
-    There are {{errorServiceArray ? errorServiceArray.length : 0 }} Error Services.
+    {{errorServiceArray ? errorServiceArray.length : 0 }} records.
   </ng-template>
 </p-table>
 

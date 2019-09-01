@@ -8,9 +8,7 @@ import {ControlDataUpd} from '../model/control-data-upd';
 import {Catalog} from '../model/catalog';
 import {Application} from '../model/app';
 import {CatalogService} from '../catalog/catalog.service';
-import {formatDate} from '@angular/common';
 
-// @ts-ignore
 @Component({
   selector: 'app-control-data',
   templateUrl: './control-data.component.html',
