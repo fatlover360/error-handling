@@ -55,14 +55,6 @@ export class ErrorCodeComponent implements OnInit {
         }
       },
       {
-        label: 'Edit',
-        icon: 'pi pi-fw pi-pencil',
-        disabled: true,
-        command: event => {
-          this.showModal('selected');
-        }
-      },
-      {
         label: 'Delete',
         icon: 'pi pi-fw pi-trash',
         disabled: true,
@@ -88,22 +80,15 @@ export class ErrorCodeComponent implements OnInit {
   onRowSelect(event) {
     if (this.selectedErrorCodes.length === 1) {
       this.items[1].disabled = false;
-      this.items[2].disabled = false;
-    }
-    if (this.selectedErrorCodes.length > 1) {
-      this.items[1].disabled = true;
-      this.items[2].disabled = false;
     }
   }
 
   onRowUnselect(event) {
     if (this.selectedErrorCodes.length === 0) {
       this.items[1].disabled = true;
-      this.items[2].disabled = true;
     }
     if (this.selectedErrorCodes.length === 1) {
       this.items[1].disabled = false;
-      this.items[2].disabled = false;
     }
   }
 
@@ -137,7 +122,7 @@ export class ErrorCodeComponent implements OnInit {
 
   clearSelection() {
     this.selectedErrorCodes = [];
-    this.items[2].disabled = true;
+    this.items[1].disabled = true;
   }
 
   selectErrorCode(errorCode: ErrorCode) {
@@ -162,20 +147,22 @@ export class ErrorCodeComponent implements OnInit {
               });
             }, error => {
               this.addToast('error', "Could not delete this error code, because it's referenced in other tables.", 'Error');
+              this.isLoading = false;
             });
           }
         }
       );
     } else {
-      this.errorCodeService.deleteErrorCodeItem(id).subscribe(data => {
+      this.errorCodeService.deleteErrorCodeItem(id.EAI_ERROR_CODE_ID).subscribe(data => {
         this.errorCodeService.getErrorCodeItems().subscribe((errorcode) => {
           this.errorCodeArray = errorcode;
           this.isLoading = false;
           this.addToast('success', 'Error Code : ' + errorcode.EAI_ERROR_CODE_DESC + ' deleted with success.', 'Success');
         }, error => {
           this.addToast('error', "Could not delete this error code, because it's referenced in other tables.", 'Error');
+          this.isLoading = false;
         });
-      })
+      });
     }
   }
 

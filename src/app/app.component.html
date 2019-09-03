@@ -1,29 +1,14 @@
-<!--<app-menu></app-menu>
-<div class="ui-g">
-  <div  class="ui-g-12 ui-md-2">
-    <app-side-menu></app-side-menu>
-  </div>
-  <div class="ui-g-12 ui-md-10 ui-g-nopad">
-    <div class="ui-g-12">
-      <router-outlet></router-outlet>
-    </div>
-  </div>
-</div> -->
-
-
-
-<div class="layout-wrapper" [ngClass]="{'layout-sidebar-active': sidebarActive}">
-
-  <app-menu></app-menu>
-  <div class="layout-main">
-    <app-side-menu></app-side-menu>
-    <div class="layout-content">
-      <router-outlet ></router-outlet>
-    </div>
-
-
-
-    <div class="layout-main-mask"></div>
-  </div>
-
+<div id='cssmenu'>
+  <ul>
+    <li><img class="logo" src="assets/images/mediahuis.png" style="height: 40px; width: 230px"/></li>
+    <li><a routerLink="/catalog" routerLinkActive="active">Services Catalog</a></li>
+    <li><a routerLink="/error-code" routerLinkActive="active">Error Codes</a></li>
+    <li><a routerLink="/error-service" routerLinkActive="active">Error Codes Services</a></li>
+    <li><a routerLink="/configuration" routerLinkActive="active">Services Configuration</a></li>
+    <li><a routerLink="/control-data" routerLinkActive="active">Control Data</a></li>
+    <li><a routerLink="/control-sequence" routerLinkActive="active">Control Sequence</a></li>
+  </ul>
 </div>
+
+
+<router-outlet></router-outlet>

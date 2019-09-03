@@ -4,7 +4,7 @@
     <p-scrollPanel [style]="{width: '100%', height: '50%'}">
       <div class="ui-grid-row">
         <div class="ui-grid-col-3">
-          Application Name:
+          Application Name *:
         </div>
         <div class="ui-grid-col-5">
           <!--input pInputText type="text" formControlName="APPLICATION_NAME" placeholder="Required"-->
@@ -17,56 +17,81 @@
       </div>
       <div class="ui-grid-row">
         <div class="ui-grid-col-3">
-          Service:
+          Service *:
         </div>
         <div class="ui-grid-col-5">
           <!--p-autoComplete formControlName="SERVICE" [suggestions]="catalogs" (completeMethod)="searchService($event)" placeholder="Required" [disabled]="appNameFilled" ></p-autoComplete-->
-          <p-dropdown [options]="servicesDropdown" formControlName="Catalog" name="serviceSelected" [disabled]="appNameFilled"></p-dropdown>
+          <p-dropdown [options]="servicesDropdown" formControlName="Catalog" name="serviceSelected" [disabled]="appNameFilled" [autoWidth]="false"></p-dropdown>
+        </div>
+        <div class="ui-grid-col-4">
+          <p-message severity="error" text="Service is required"
+                     *ngIf="!formConfiguration.controls['Catalog'].valid&&formConfiguration.controls['Catalog'].dirty"></p-message>
         </div>
       </div>
 
       <div class="ui-grid-row">
         <div class="ui-grid-col-3">
-          Error Code:
+          Error Code *:
         </div>
         <div class="ui-grid-col-5">
           <p-autoComplete formControlName="ErrorCode" [suggestions]="errorCodes" (completeMethod)="searchErrorCode($event)"></p-autoComplete>
         </div>
+        <div class="ui-grid-col-4">
+          <p-message severity="error" text="Error Code is required"
+                     *ngIf="!formConfiguration.controls['ErrorCode'].valid&&formConfiguration.controls['ErrorCode'].dirty"></p-message>
+        </div>
       </div>
 
       <div class="ui-grid-row">
         <div class="ui-grid-col-3">
-          Max Retries:
+          Max Retries *:
         </div>
         <div class="ui-grid-col-5">
           <input type="number" pInputText formControlName="MAX_RETRIES">
         </div>
+        <div class="ui-grid-col-4">
+          <p-message severity="error" text="Max Retries is required"
+                     *ngIf="!formConfiguration.controls['MAX_RETRIES'].valid&&formConfiguration.controls['MAX_RETRIES'].dirty"></p-message>
+        </div>
+
       </div>
 
       <div class="ui-grid-row">
         <div class="ui-grid-col-3">
-          Wait Time (seconds):
+          Wait Time (seconds) *:
         </div>
         <div class="ui-grid-col-5">
           <input type="number" pInputText formControlName="WAIT_TIME_SECS">
         </div>
+        <div class="ui-grid-col-4">
+          <p-message severity="error" text="Wait time is required"
+                     *ngIf="!formConfiguration.controls['WAIT_TIME_SECS'].valid&&formConfiguration.controls['WAIT_TIME_SECS'].dirty"></p-message>
+        </div>
       </div>
 
       <div class="ui-grid-row">
         <div class="ui-grid-col-3">
-          Delta Time (seconds):
+          Delta Time (seconds)*:
         </div>
         <div class="ui-grid-col-5">
           <input type="number" pInputText formControlName="DELTA_TIME_SECS">
         </div>
+        <div class="ui-grid-col-4">
+          <p-message severity="error" text="Delta time is required"
+                     *ngIf="!formConfiguration.controls['DELTA_TIME_SECS'].valid&&formConfiguration.controls['DELTA_TIME_SECS'].dirty"></p-message>
+        </div>
       </div>
 
       <div class="ui-grid-row">
         <div class="ui-grid-col-3">
-          Delta Time (%):
+          Delta Time (%)*:
         </div>
         <div class="ui-grid-col-5">
           <input type="number" pInputText formControlName="DELTA_PERCENTAGE">
+        </div>
+        <div class="ui-grid-col-4">
+          <p-message severity="error" text="Delta time is required"
+                     *ngIf="!formConfiguration.controls['DELTA_PERCENTAGE'].valid&&formConfiguration.controls['DELTA_PERCENTAGE'].dirty"></p-message>
         </div>
       </div>
 

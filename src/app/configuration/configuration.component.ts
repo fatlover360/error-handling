@@ -59,14 +59,6 @@ export class ConfigurationComponent implements OnInit {
         }
       },
       {
-        label: 'Edit',
-        icon: 'pi pi-fw pi-pencil',
-        disabled: true,
-        command: event => {
-          this.showModal('selected');
-        }
-      },
-      {
         label: 'Delete',
         icon: 'pi pi-fw pi-trash',
         disabled: true,
@@ -84,7 +76,6 @@ export class ConfigurationComponent implements OnInit {
     ];
 
     this.configurationService.getConfigurationItems().subscribe(data => {
-      console.log(data);
       this.configurationArray = data;
       this.isLoading = false;
     });
@@ -93,22 +84,16 @@ export class ConfigurationComponent implements OnInit {
   onRowSelect(event) {
     if (this.selectedConfigurations.length === 1) {
       this.items[1].disabled = false;
-      this.items[2].disabled = false;
-    }
-    if (this.selectedConfigurations.length > 1) {
-      this.items[1].disabled = true;
-      this.items[2].disabled = false;
+
     }
   }
 
   onRowUnselect(event) {
     if (this.selectedConfigurations.length === 0) {
       this.items[1].disabled = true;
-      this.items[2].disabled = true;
     }
     if (this.selectedConfigurations.length === 1) {
       this.items[1].disabled = false;
-      this.items[2].disabled = false;
     }
   }
 
@@ -165,7 +150,8 @@ export class ConfigurationComponent implements OnInit {
             this.configurationService.deleteConfigurationItem(configuration.EAI_ERROR_CODE_ID, configuration.EAI_CATALOG_ID).subscribe(data => {
               this.configurationService.getConfigurationItems().subscribe((conf) => {
                 this.configurationArray = conf;
-                this.addToast('success', 'Configuration : ' + configuration.EAI_ERROR_CODE_ID + ' deleted with success.', 'Success');
+                this.addToast('success', 'Deleted with success.', 'Success');
+                this.isLoading = false;
               });
             }, error => {
               this.addToast('error', 'Could not delete this configuration.', 'Error');
@@ -178,6 +164,17 @@ export class ConfigurationComponent implements OnInit {
           }
         }
       );
+    } else {
+      this.configurationService.deleteConfigurationItem(id.EAI_ERROR_CODE_ID, id.EAI_CATALOG_ID).subscribe(data => {
+        this.configurationService.getConfigurationItems().subscribe((conf) => {
+          this.configurationArray = conf;
+          this.isLoading = false;
+          this.addToast('success', 'Deleted with success.', 'Success');
+        });
+      }, error => {
+        this.isLoading = false;
+        this.addToast('error', 'Could not delete this configuration.', 'Error');
+      });
     }
   }
 

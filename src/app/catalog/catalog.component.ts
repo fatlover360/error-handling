@@ -84,14 +84,6 @@ export class CatalogComponent implements OnInit {
         }
       },
       {
-        label: 'Edit',
-        icon: 'pi pi-fw pi-pencil',
-        disabled: true,
-        command: event => {
-          this.showModal('selected');
-        }
-      },
-      {
         label: 'Delete',
         icon: 'pi pi-fw pi-trash',
         disabled: true,
@@ -112,22 +104,15 @@ export class CatalogComponent implements OnInit {
   onRowSelect(event) {
     if (this.selectedCatalogs.length === 1) {
       this.items[1].disabled = false;
-      this.items[2].disabled = false;
-    }
-    if (this.selectedCatalogs.length > 1) {
-      this.items[1].disabled = true;
-      this.items[2].disabled = false;
     }
   }
 
   onRowUnselect(event) {
     if (this.selectedCatalogs.length === 0) {
       this.items[1].disabled = true;
-      this.items[2].disabled = true;
     }
     if (this.selectedCatalogs.length === 1) {
       this.items[1].disabled = false;
-      this.items[2].disabled = false;
     }
   }
 
@@ -161,7 +146,7 @@ export class CatalogComponent implements OnInit {
 
   clearSelection() {
     this.selectedCatalogs = [];
-    this.items[2].disabled = true;
+    this.items[1].disabled = true;
   }
 
   selectCatalog(catalog: Catalog) {
@@ -190,7 +175,7 @@ export class CatalogComponent implements OnInit {
         }
       );
     } else {
-      this.catalogService.deleteCatalogItem(id).subscribe(data => {
+      this.catalogService.deleteCatalogItem(id.EAI_CATALOG_ID).subscribe(data => {
         this.addToast('success', 'Service with ID: ' + id + ' deleted with success.', 'Success');
         this.catalogService.getCatalogItems().subscribe(catalogs => {
           this.catalogArray = catalogs;

@@ -63,14 +63,6 @@ export class ErrorServiceComponent implements OnInit {
         }
       },
       {
-        label: 'Edit',
-        icon: 'pi pi-fw pi-pencil',
-        disabled: true,
-        command: event => {
-          this.showModal('selected');
-        }
-      },
-      {
         label: 'Delete',
         icon: 'pi pi-fw pi-trash',
         disabled: true,
@@ -101,22 +93,19 @@ export class ErrorServiceComponent implements OnInit {
   onRowSelect(event) {
     if (this.selectedErrorServices.length === 1) {
       this.items[1].disabled = false;
-      this.items[2].disabled = false;
+
     }
-    if (this.selectedErrorServices.length > 1) {
-      this.items[1].disabled = true;
-      this.items[2].disabled = false;
-    }
+
   }
 
   onRowUnselect(event) {
     if (this.selectedErrorServices.length === 0) {
       this.items[1].disabled = true;
-      this.items[2].disabled = true;
+
     }
     if (this.selectedErrorServices.length === 1) {
       this.items[1].disabled = false;
-      this.items[2].disabled = false;
+
     }
   }
 
@@ -150,7 +139,7 @@ export class ErrorServiceComponent implements OnInit {
 
   clearSelection() {
     this.selectedErrorServices = [];
-    this.items[2].disabled = true;
+    this.items[1].disabled = true;
   }
 
   selectErrorService(errorService: ErrorService) {
@@ -179,22 +168,22 @@ export class ErrorServiceComponent implements OnInit {
                   errorService.ErrorCode.EAI_ERROR_CODE_ID + ' deleted with success.', 'Success');
               });
             }, error => {
-              this.addToast('error', 'Could not delete this error ' + errorService.SYSTEM_NATIVE_CODE, 'Error');
+              this.addToast('error', 'Error Service', 'Something went wrong!');
               this.isLoading = false;
             });
           }
         }
       );
     } else {
-      /*this.errorServiceService.deleteErrorServiceItem(id).subscribe(data => {
+      this.errorServiceService.deleteErrorService(id.ErrorCode.EAI_ERROR_CODE_ID, id.Catalog.EAI_CATALOG_ID).subscribe(data => {
         this.errorServiceService.getErrorServiceItems().subscribe((errorcode) => {
           this.errorServiceArray = errorcode;
           this.isLoading = false;
-          this.addToast('success', 'Error Service : ' + errorcode.EAI_ERROR_SERVICE_ID + ' deleted with success.', 'Success');
+          this.addToast('success', 'Deleted with success.', 'Success');
         }, error => {
-          this.addToast('error', 'Could not delete this error, because it\'s referenced in other tables.', 'Error');
+          this.addToast('error', 'Error Service', 'Something went wrong!');
         });
-      });*/
+      });
     }
   }
 

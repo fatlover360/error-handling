@@ -118,7 +118,7 @@ export class ControlSequenceComponent implements OnInit {
               this.controlSequenceService.getControlSequences().subscribe((seqs) => {
                 this.controlSequenceArray = seqs;
                 this.isLoading = false;
-                this.addToast('success', 'Sequence Key deleted with success.', 'Success');
+                this.addToast('success', 'Sequence deleted with success.', 'Success');
               });
             }, error => {
               this.addToast('error', "Could not delete this sequence.", 'Error');

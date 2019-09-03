@@ -8,12 +8,16 @@ import {AppComponent} from '../app.component';
 })
 export class MenuComponent implements OnInit, AfterViewInit  {
 
-  constructor(public app: AppComponent) { }
+
+
+  constructor() { }
 
   ngOnInit() {
   }
 
   ngAfterViewInit() {
   }
+
+
 
 }

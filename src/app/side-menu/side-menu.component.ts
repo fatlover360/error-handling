@@ -1,8 +1,8 @@
 import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MenuItem} from 'primeng/api';
-import {AppComponent} from '../app.component';
 import {ScrollPanel} from 'primeng/primeng';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {AppComponent} from '../app.component';
 
 @Component({
   selector: 'app-side-menu',
@@ -78,7 +78,7 @@ export class AppSubMenuComponent {
 
   hover: boolean;
 
-  constructor(public app: AppComponent, public appMenu: SideMenuComponent) { }
+  constructor(public app:  AppComponent, public appMenu: SideMenuComponent) { }
 
   itemClick(event: Event, item: MenuItem, index: number)  {
     // avoid processing disabled items

@@ -42,8 +42,6 @@ export class CatalogFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.HAS_HANDLING = false;
-    this.HAS_SEQUENCE = false;
 
     this.booleans = [];
     this.booleans.push({label: 'Select Value', value: ''});
@@ -53,14 +51,14 @@ export class CatalogFormComponent implements OnInit, OnDestroy {
 
     this.formCatalog = new FormGroup({
       'APPLICATION_NAME': new FormControl(this.APPLICATION_NAME, Validators.required),
-      'SERVICE_NAME': new FormControl(this.SERVICE_NAME, Validators.required),
+      'SERVICE_NAME': new FormControl(this.SERVICE_NAME),
       'SYSTEM': new FormControl(this.SYSTEM, Validators.required),
       'SERVICE_TYPE': new FormControl(this.SERVICE_TYPE, Validators.required),
       'SERVICE_FUNCTION': new FormControl(this.SERVICE_FUNCTION, Validators.required),
       'SERVICE_OPERATION': new FormControl(this.SERVICE_OPERATION, Validators.required),
       'SERVICE_VERSION': new FormControl(this.SERVICE_VERSION, Validators.required),
-      'RECEIVER_TYPE': new FormControl(this.RECEIVER_TYPE, Validators.required),
-      'RECEIVER_DESTINATION': new FormControl(this.RECEIVER_DESTINATION, Validators.required),
+      'RECEIVER_TYPE': new FormControl(this.RECEIVER_TYPE),
+      'RECEIVER_DESTINATION': new FormControl(this.RECEIVER_DESTINATION),
       'HAS_HANDLING': new FormControl(this.HAS_HANDLING),
       'HAS_SEQUENCE': new FormControl(this.HAS_SEQUENCE)
     });
@@ -105,10 +103,10 @@ export class CatalogFormComponent implements OnInit, OnDestroy {
   }
 
   hasHandling() {
-    this.HAS_HANDLING = !this.HAS_HANDLING
+    this.HAS_HANDLING = !this.HAS_HANDLING;
   }
 
   hasSequence() {
-    this.HAS_SEQUENCE = !this.HAS_SEQUENCE
+    this.HAS_SEQUENCE = !this.HAS_SEQUENCE;
   }
 }

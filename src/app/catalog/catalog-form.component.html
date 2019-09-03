@@ -16,14 +16,13 @@
       </div>
       <div class="ui-grid-row">
         <div class="ui-grid-col-3">
-          Service name *:
+          Service name :
         </div>
         <div class="ui-grid-col-5">
-          <input pInputText type="text" formControlName="SERVICE_NAME" placeholder="Required"/>
+          <input pInputText type="text" formControlName="SERVICE_NAME"/>
         </div>
         <div class="ui-grid-col-4">
-          <p-message severity="error" text="Service name is required"
-                     *ngIf="!formCatalog.controls['SERVICE_NAME'].valid&&formCatalog.controls['SERVICE_NAME'].dirty"></p-message>
+
         </div>
       </div>
       <div class="ui-grid-row">
@@ -88,26 +87,24 @@
       </div>
       <div class="ui-grid-row">
         <div class="ui-grid-col-3">
-          Receiver Type *:
+          Receiver Type :
         </div>
         <div class="ui-grid-col-5">
           <p-dropdown [options]="booleans" formControlName="RECEIVER_TYPE" [autoWidth]="false"></p-dropdown>
         </div>
         <div class="ui-grid-col-4">
-          <p-message severity="error" text="Receiver Type is required"
-                     *ngIf="!formCatalog.controls['RECEIVER_TYPE'].valid&&formCatalog.controls['RECEIVER_TYPE'].dirty"></p-message>
+
         </div>
       </div>
       <div class="ui-grid-row">
         <div class="ui-grid-col-3">
-          Receiver Destination *:
+          Receiver Destination :
         </div>
         <div class="ui-grid-col-5">
           <input pInputText type="text" formControlName="RECEIVER_DESTINATION">
         </div>
         <div class="ui-grid-col-4">
-          <p-message severity="error" text="Receiver Destination is required"
-                     *ngIf="!formCatalog.controls['RECEIVER_DESTINATION'].valid&&formCatalog.controls['RECEIVER_DESTINATION'].dirty"></p-message>
+
         </div>
       </div>
       <div class="ui-grid-row">
@@ -115,7 +112,7 @@
           Has Sequence:
         </div>
         <div class="ui-grid-col-5">
-          <div class="ui-g-12"><p-checkbox name="HAS_SEQUENCE" (onChange)="hasSequence()" formControlName="HAS_SEQUENCE"></p-checkbox></div>
+          <div class="ui-g-12"><p-checkbox name="HAS_SEQUENCE" (onChange)="hasSequence()" formControlName="HAS_SEQUENCE" binary="true"></p-checkbox></div>
         </div>
         <div class="ui-grid-col-4">
         </div>
@@ -125,7 +122,7 @@
           Has Handling:
         </div>
         <div class="ui-grid-col-5">
-          <div class="ui-g-12"><p-checkbox name="HAS_HANDLING" (onChange)="hasHandling()" formControlName="HAS_HANDLING"></p-checkbox></div>
+          <div class="ui-g-12"><p-checkbox name="HAS_HANDLING" (onChange)="hasHandling()" formControlName="HAS_HANDLING" binary="true"></p-checkbox></div>
         </div>
         <div class="ui-grid-col-4">
         </div>

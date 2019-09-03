@@ -16,7 +16,7 @@
                        EAI_ERROR_CODE_ID="{{selectedErrorCode.EAI_ERROR_CODE_ID}}"
                        EAI_ERROR_CODE="{{selectedErrorCode.EAI_ERROR_CODE}}"
                        EAI_ERROR_CODE_DESC="{{selectedErrorCode.EAI_ERROR_CODE_DESC}}"
-                       IS_ERROR="{{selectedErrorCode.IS_ERROR == 'Y' ? true : false}}"
+                       [IS_ERROR]="selectedErrorCode.IS_ERROR === 'Y' ? true : false"
                        mode="edit" (submitFormObj)="submit($event)"></app-error-code-form>
 
   <app-error-code-form *ngIf="selectedErrorCode == null" mode="create" (submitFormObj)="submit($event)"></app-error-code-form>
@@ -30,7 +30,7 @@
          *ngIf="!isLoading" selectionMode="multiple"
          [(selection)]="selectedErrorCodes"
          (onRowSelect)="onRowSelect($event)"
-         (onRowUnselect)="onRowUnselect($event)"
+         (onRowUnselect)="onRowUnselect($event)" [autoLayout]="true"
          [responsive]="true"
          dataKey="EAI_ERROR_CODE">
 
@@ -42,54 +42,28 @@
   </ng-template>
   <ng-template pTemplate="header" let-columns >
     <tr>
-      <th style="width: 3em"></th>
+
       <th *ngFor="let col of cols" [ngClass]="col.field">
         {{col.header}}
       </th>
-      <!--th style="width:4em"></th-->
+      <th style="width: 90px"></th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-codes let-columns="columns" let-rowIndex="rowIndex" let-expanded="expanded">
     <tr [pSelectableRow]="codes" [pSelectableRowIndex]="rowIndex" >
-      <td>
-        <!--a href="#" [pRowToggler]="codes" (click)="selectErrorCode(codes)">
-          <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
-        </a -->
-      </td>
+
       <td *ngFor="let col of cols" >
         {{codes[col.field]}}
       </td>
-      <!--td>
-        <a pButton class="ui-button-secondary ui-button-severity" icon="pi pi-eye" [pRowToggler]="catalog" (click)="selectCatalog(catalog)"></a>
-      </td-->
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="rowexpansion" let-errorscode let-columns="columns">
-    <tr>
-      <td [attr.colspan]="columns.length + 1">
-        <div class="ui-g ui-fluid" style="font-size:12px;padding:20px">
-          <div class="ui-g-5 ui-md-5">
-            <div class="ui-g">
-              <div class="ui-g-12">
-                <b>Error Code ID:</b> {{errorscode.EAI_ERROR_CODE_ID}}
-              </div>
-              <div class="ui-g-12">
-                <b>Error Code:</b> {{errorscode.EAI_ERROR_CODE}}
-              </div>
-              <div class="ui-g-12">
-                <b>Error Code Description:</b> {{errorscode.EAI_ERROR_CODE_DESC}}
-              </div>
-              <div class="ui-g-12">
-                <b>Is Error:</b> {{errorscode.IS_ERROR}}
-              </div>
-            </div>
+      <td>
+        <div class="outer" style="width: 100%;text-align: center">
+          <div class="inner"  style="display: inline-block">
+            <button pButton class="ui-button-secondary ui-button-severity" icon="pi pi-pencil" [pRowToggler]="codes"
+                    (click)="showModal(codes)"></button>
           </div>
-
-          <div class="ui-g-1 ui-md-1">
-            <div class="ui-m">
-              <button pButton type="button" class="ui-button-info" icon="pi pi-trash" label="Delete" (click)=delete(errorscode.EAI_ERROR_CODE_ID)></button>
-              <button pButton (click)="showModal(errorscode)" class="ui-button-success" icon="pi pi-pencil" label="Edit"></button> <!--[disabled]="!form.valid"-->
-            </div>
+          <div class="inner" style="display: inline-block">
+            <button pButton class="ui-button-secondary ui-button-severity" icon="pi pi-trash" [pRowToggler]="codes"
+                    (click)="delete(codes)" ></button>
           </div>
         </div>
       </td>

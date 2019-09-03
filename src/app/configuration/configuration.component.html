@@ -28,7 +28,7 @@
          [(selection)]="selectedConfigurations"
          (onRowSelect)="onRowSelect($event)"
          (onRowUnselect)="onRowUnselect($event)"
-         [responsive]="true" resizableColumns="true"
+         [responsive]="true" resizableColumns="true" [autoLayout]="true"
          dataKey="ID">
 
   <ng-template pTemplate="caption">
@@ -40,19 +40,14 @@
 
   <ng-template pTemplate="header" let-columns >
     <tr>
-      <th style="width: 3em"></th>
       <th *ngFor="let col of cols" [ngStyle]="{'display': col.display}">
         {{col.header}}
       </th>
-      <!--th style="width:4em"></th-->
+      <th style="width:90px"></th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-configuration let-columns="columns" let-rowIndex="rowIndex" let-expanded="expanded">
     <tr [pSelectableRow]="configuration" [pSelectableRowIndex]="rowIndex" >
-      <td>
-        <a href="#" [pRowToggler]="configuration" (click)="selectErrorCode(configuration)">
-        </a>
-      </td>
       <td *ngFor="let col of cols"  [ngStyle]="{'display': col.display}">
         <div *ngIf="col.subfield;then nested_object_content else normal_content"></div>
         <ng-template #nested_object_content>
@@ -63,9 +58,18 @@
         </ng-template>
 
       </td>
-      <!--td>
-        <a pButton class="ui-button-secondary ui-button-severity" icon="pi pi-eye" [pRowToggler]="catalog" (click)="selectCatalog(catalog)"></a>
-      </td-->
+      <td>
+        <div class="outer" style="width: 100%;text-align: center">
+          <div class="inner"  style="display: inline-block">
+            <button pButton class="ui-button-secondary ui-button-severity" icon="pi pi-pencil" [pRowToggler]="configuration"
+                    (click)="showModal(configuration)"></button>
+          </div>
+          <div class="inner" style="display: inline-block">
+            <button pButton class="ui-button-secondary ui-button-severity" icon="pi pi-trash" [pRowToggler]="configuration"
+                    (click)="delete(configuration)" ></button>
+          </div>
+        </div>
+      </td>
     </tr>
   </ng-template>
   <ng-template pTemplate="summary">
